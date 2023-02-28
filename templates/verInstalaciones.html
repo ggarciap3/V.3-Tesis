@@ -1,0 +1,281 @@
+{% extends "base_admin.html" %}
+{% load static %}
+{% block title %}Ver Instalacion{% endblock %}
+
+
+            {% block content %}
+            <div class="container-fluid px-3 pt-3">
+                <div class="card card-bg">
+                    <div class="card mb-4">
+ 
+
+                        <div class="card-body color-card1">
+                            <nav class="navbar navbar-color1">
+                                <div class="container-fluid">
+                                    <h2> Vista de Instalacion</h2>
+
+
+                                </div>
+                            </nav>
+                        </div>
+                    </div>
+                    
+                    <div class="card mt-1">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class=" text-center col-md-12">
+                                        <h2>{{verInstalacion.nombre}}</h2>
+                                    </div>
+                                    <div class=" text-center col-md-12">
+                                        <div>
+                                            <img src="../media/{{verInstalacion.imagen}}" width="350px" height="350px">
+                                        </div>
+                                    </div>
+                                    {% comment %} <div class=" col-md-12">
+                                        <div class="text-center col-md-6" style="margin: 0px;border: 0px">
+                                            <h3>Precio:</h3>
+                                            <h5 id="precio1">{{verInstalacion.precio}} </h5>
+                                        </div> {% endcomment %}
+                                        {% comment %} <div class="text-center col-md-6" style="margin: 0px;border: 0px">
+                                            <h3>Capacidad:</h3>
+                                            <h5>{{verInstalacion.capacidad}} personas</h5>
+                                        </div> {% endcomment %}
+                                    </div>
+                                    <div class="text-center col-md-12" >
+                                        <h3>Descripcion:</h3>
+                                        <h5 align="left"">{{verInstalacion.descripcion}} </h5>
+                                    </div>
+                                    {% comment %} <div class="text-center col-md-12" >
+                                        <h3>Indumentaria Necesaria:</h3>
+                                        <h5>{{verInstalacion.indumentaria}} </h5>
+                                    </div> {% endcomment %}
+                                    {% comment %} <div class="text-center col-md-12" >
+                                        <h3>Recomendaciones:</h3>
+                                        <h5>{{verInstalacion.recomendaciones}} </h5>
+                                    </div> {% endcomment %}
+                                    <div class="text-center col-md-12" >
+                                        <h3>Restriciones:</h3>
+                                        <h5 align="left" >{{verInstalacion.restriciones}} </h5>
+                                    </div>
+                                    
+
+                                    <div class="col-md-12">
+                                        <a href="{% url 'adminInstalaciones' %}" class="btn btn-secondary" >Volver</a>
+                                        <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal"data-bs-target="#exampleModal1" >
+                                        <i class="fa-solid fa-pen"></i> Editar</button>
+                                        <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal"data-bs-target="#exampleModal2" >
+                                        <i class="fa-solid fa-pen"></i> Reservar</button>
+                                    </div>
+
+                                    <div class="modal fade" id="exampleModal2" tabindex="-1"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Nueva Reserva</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+
+                                                <div class="modal-body">
+                                                    <form action="/registroReservas/{{verInstalacion.id}}" method="post" class="row" >{% csrf_token %}
+                                                        
+                                                        
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Nombre</label>
+                                                            <input type="text" name="nombre" id="nombre" class="form-control"  required>
+                                                        </div>
+        
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Apellido</label>
+                                                            <input type="text" name="apellido" id="apellido" class="form-control"  required>
+                                                        </div>
+        
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Ci/Ruc</label>
+                                                            <input type="text" name="ci" id="ci"class="form-control"   maxlength="10" minlength="10"  required> 
+                                                        </div>
+        
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Telefono</label>
+                                                            <input type="text" name="telefono" id="telefono" class="form-control" pattern="^[0-9999999999]+" maxlength="10" minlength="10" required>
+                                                        </div>
+        
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Correo</label>
+                                                            <input type="email"  name="correo" id="correo"class="form-control" required>
+                                                        </div>
+        
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Fecha de reserva</label>
+                                                            <input type="date"  name="fecha_reserva" id="fecha_reserva" class="form-control" required>
+                                                        </div>
+        
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">cantidad</label>
+                                                            <input type="text" name="cantidad" id="cantidad" class="form-control" pattern="^[0-9999999999]+" maxlength="10" minlength="1" required>
+                                                        </div>
+
+                                        
+                                                        <div class="form-group col-md-3">
+        
+                                                            <label for="Presentaciones">Desde:</label>
+                                                            <select class="form-control" id="Presentaciones" name="Presentaciones">
+                                                                {% for op in horarioI %}
+                                                                    <option value="{{ op.0 }}">{{ op.1 }}</option>>
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+        
+                                                        <div class="form-group col-md-3">
+                                                            <label for="Presentaciones">Hasta:</label>
+                                                            <select class="form-control" id="Productos" name="Productos">
+                                                                {% for op in horarioF %}
+                                                                    <option value="{{ op.0 }}">{{ op.1 }}</option>
+                                                                {% endfor %}
+                                                            </select>
+        
+                                                            <div class="form-group col-md-12">
+                                                                <br>
+                                                            </div>
+                                                        </div>
+                                    
+
+                                                        <br>
+                                                        
+                                                        <div class="modal-footer form-group">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Cerrar</button>
+                                                            <button type="submit" class="btn btn-primary" >Guardar</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+                                    <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Datos De Actualizacion</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+
+                                                <div class="modal-body">
+                                                    <form action="/editaInstalacion/{{verInstalacion.id}}" method="post" class="row" enctype="multipart/form-data" > {% csrf_token %}
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Nombre</label>
+                                                            <input type="text" name="nombre" id="nombre" class="form-control" value="{{verInstalacion.nombre}}" required>
+                                                        </div>
+
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Disiplina</label>
+                                                            <select type="text" class="form-select" name="disiplina" id="disiplina" value="{{verInstalacion.id_diciplina.nombre}}" required>
+                                                                <option selected disabled>---------------</option>
+                                                                {% for d in disiplinas %}
+                                                                <option
+                                                                {% if d.id == verInstalacion.id_diciplina.id %}
+                                                                {{'selected'}}
+                                                                {% endif %}
+                                                                value="{{ d.id }}" >{{ d.nombre }}</option>
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+
+                                                        {% comment %} <div class="form-group col-md-6">
+                                                            <label for="">Precio</label>
+                                                            <input type="text" name="precio" id="precio" class="form-control" value="{{verInstalacion.precio}}" required> 
+                                                        </div>
+
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Capacidad </label>   
+                                                                <input type="text" name="capacidad" id="capacidad" class="form-control" maxlength="10" value="{{verInstalacion.capacidad}}" required>
+
+                                                        </div> {% endcomment %}
+
+                                                        <div class="form-group col-md-12">
+                                                            <label for="formFile" class="form-label" style="margin-top: -5px;">Imagen</label>
+                                                            <input class="form-control" type="file" name='imagen' id='imagen' value="{{verInstalacion.imagen}}" placeholder={{verInstalacion.imagen}} >
+                                                            <p>Imagen Actual:</p><img src="../media/{{verInstalacion.imagen}}" alt="prueva" style="width: 100px">
+                                                        </div>
+
+                                                        <div class="form-group col-md-12">
+                                                            <label for="">Descripcion</label>
+                                                            <textarea class="form-control" placeholder="" name="descripcion" id="descripcion" style="height: 100px" value="{{verInstalacion.descripcion}}">{{verInstalacion.descripcion}}</textarea>
+                                                        </div>
+
+                                                        {% comment %} <div class="form-group col-md-12">
+                                                            <label for="">Indumentaria</label>
+                                                            <div class="form-floating">
+                                                                <textarea type="list" class="form-control" placeholder="" name="indumentaria" id="indumentaria" style="height: 100px" value="{{verInstalacion.indumentaria}}">{{verInstalacion.indumentaria}}</textarea>
+                                                                <label for="indumentaria">Cada indumentaria que incluya separelo con una coma.</label>
+                                                            </div>
+                                                        </div> {% endcomment %}
+
+                                                        {% comment %} <div class="form-group col-md-12">
+                                                            <label for="">Recomendaciones</label>
+                                                            <div class="form-floating">
+                                                                <textarea type="list" class="form-control" placeholder="" name="recomendaciones" id="recomendaciones" style="height: 100px" value="{{verInstalacion.recomendaciones}}">{{verInstalacion.recomendaciones}}</textarea>
+                                                                <label for="recomendaciones">Cada recomendacion que incluya separelo con una coma.</label>
+                                                            </div>
+                                                        </div> {% endcomment %}
+
+                                                        <div class="form-group col-md-12">
+                                                            <label for="">Restriciones</label>
+                                                            <div class="form-floating">
+                                                                <textarea type="list" class="form-control" placeholder="" name="restricciones" id="restricciones" style="height: 100px" value="{{verInstalacion.restriciones}}">{{verInstalacion.restriciones}}</textarea>
+                                                                <label for="restricciones">Cada restriccion que incluya separelo con una coma.</label>
+                                                            </div>
+                                                        </div>
+
+                                                        {% comment %} <div class="form-group col-md-12 " >
+                                                            <label for="">Equipo Incluido</label>
+                                                            <div class="form-floating">
+                                                                <textarea type="list" class="form-control" placeholder="" name="equipo_incluido" id="equipo_incluido" style="height: 100px" value="{{verInstalacion.equipo_incluido}}">{{verInstalacion.equipo_incluido}}</textarea>
+                                                                <label for="equipo_incluido">Cada equipo que incluya separelo con una coma.</label>
+                                                            </div>
+                                                            
+                                                        </div> {% endcomment %}
+                                                        <br>
+                                                        
+                                                        <div class="modal-footer form-group">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                            <button type="submit" class="btn btn-primary" >Guardar</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>      
+                                        </div>
+                                     </div>
+
+
+
+
+
+
+
+                                    
+                                    
+                                        
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+            {% endblock %}
+
+            {% block script %}
+            <script src="{% static 'javascript/funciones.js' %}"></script>
+
+            {% endblock %}
+                

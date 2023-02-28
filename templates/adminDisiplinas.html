@@ -1,0 +1,93 @@
+{% extends "base_admin.html" %}
+{% load static %}
+{% block title %}Disiplina Instalaciones{% endblock %}
+
+
+            {% block content %}
+            <div class="container-fluid px-3 pt-3">
+                <div class="card card-bg">
+                    <div class="card mb-4">
+                        <div class="card-body color-card1">
+                            <nav class="navbar navbar-color1">
+                                <div class="container-fluid">
+
+                                    <form class="d-flex" role="search" method="get">
+                                        <input class="form-control me-2" type="search" placeholder="Buscar...."
+                                            aria-label="Search" name="buscardisiplina">
+                                        <button class="btn btn-outline-secondary" type="submit" id="buscador"><i
+                                                class="fas fa-search"></i></button>
+                                    </form>
+
+                                </div>
+                            </nav>
+                        </div>
+                    </div>
+
+                    <div class="card mt-1">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h2 class="col-12">Tipos de opciones</h2>
+                                    <div>
+                                        <form action="/registroDisiplina/" method="post" class="row" > {% csrf_token %}
+                                            <div class="form-group col-md-6">
+                                                <label for="">Nombre</label>
+                                                <input type="text" name="disnombre" id="disnombre" class="form-control" required>
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <button type="submit" class="btn btn-primary separacion" data-bs-toggle=""
+                                                        data-bs-target="" >
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                                                        <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mt-1">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="table-responsive">
+                                        <!-- Tabla de Disiplina -->
+                                        <table class='table table-bordered table-stripe table-hover'>
+                                            <thead class="text-center">
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Nombre</th>
+                                                    <th>Acción</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for d in disiplinas %}
+                                                <tr class='text-center'>
+                                                    <td>{{forloop.counter}}</td>
+                                                    <td>{{ d.nombre }}</td>
+                                                    <td>
+
+                                                        <a href="/editaDisiplina/{{d.id}}"><button class="btn btn-sm btn-success separacion" style="margin-bottom: 3%" data-bs-toggle=""
+                                                            data-bs-target="">
+                                                            <i class="fa-solid fa-pen"></i></button></a>
+                                                        <a href="/eliminacionDisiplina/{{d.id}}" class=" btn btn-sm btn-danger btnEliminacion"><i class='fa fa-trash'></i></a>
+                                                    </td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                        <!-- Fin Tabla de Reserva -->
+                                        <div class="col-md-12">
+                                            <a href="{% url 'adminInstalaciones' %}" class="btn btn-secondary" >Volver</a>
+                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endblock %}
+                
