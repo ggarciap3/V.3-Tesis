@@ -12,7 +12,7 @@
                         <div class="card-body color-card1">
                             <nav class="navbar navbar-color1">
                                 <div class="container-fluid">
-                                    <h2> Vista de Instalacion</h2>
+                                    <h2> Vista de Categoria</h2>
 
 
                                 </div>
@@ -25,11 +25,11 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class=" text-center col-md-12">
-                                        <h2>{{verInstalacion.nombre}}</h2>
+                                        <h2>{{verTipospq.nombre}}</h2>
                                     </div>
                                     <div class=" text-center col-md-12">
                                         <div>
-                                            <img src="../media/{{verInstalacion.imagen}}" width="350px" height="350px">
+                                            <img src="../media/{{verTipospq.imagen}}" width="350px" height="350px">
                                         </div>
                                     </div>
                                     {% comment %} <div class=" col-md-12">
@@ -44,7 +44,7 @@
                                     </div>
                                     <div class="text-center col-md-12" >
                                         <h3>Descripcion:</h3>
-                                        <h5 align="left"">{{verInstalacion.descripcion}} </h5>
+                                        <h5 align="left"">{{verTipospq.descripcion}} </h5>
                                     </div>
                                     {% comment %} <div class="text-center col-md-12" >
                                         <h3>Indumentaria Necesaria:</h3>
@@ -56,12 +56,12 @@
                                     </div> {% endcomment %}
                                     <div class="text-center col-md-12" >
                                         <h3>Restriciones:</h3>
-                                        <h5 align="left" >{{verInstalacion.restriciones}} </h5>
+                                        <h5 align="left" >{{verTipospq.restriciones}} </h5>
                                     </div>
                                     
 
                                     <div class="col-md-12">
-                                        <a href="{% url 'adminInstalaciones' %}" class="btn btn-secondary" >Volver</a>
+                                        <a href="{% url 'adminTipospqs' %}" class="btn btn-secondary" >Volver</a>
                                         <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal"data-bs-target="#exampleModal1" >
                                         <i class="fa-solid fa-pen"></i> Editar</button>
                                         <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal"data-bs-target="#exampleModal2" >
@@ -79,7 +79,7 @@
                                                 </div>
 
                                                 <div class="modal-body">
-                                                    <form action="/registroReservas/{{verInstalacion.id}}" method="post" class="row" >{% csrf_token %}
+                                                    <form action="/registroIngresopqs/{{verTipospq.id}}" method="post" class="row" >{% csrf_token %}
                                                         
                                                         
                                                         <div class="form-group col-md-6">
@@ -168,19 +168,19 @@
                                                 </div>
 
                                                 <div class="modal-body">
-                                                    <form action="/editaInstalacion/{{verInstalacion.id}}" method="post" class="row" enctype="multipart/form-data" > {% csrf_token %}
+                                                    <form action="/editaTipospq/{{verTipospq.id}}" method="post" class="row" enctype="multipart/form-data" > {% csrf_token %}
                                                         <div class="form-group col-md-6">
                                                             <label for="">Nombre</label>
-                                                            <input type="text" name="nombre" id="nombre" class="form-control" value="{{verInstalacion.nombre}}" required>
+                                                            <input type="text" name="nombre" id="nombre" class="form-control" value="{{verTipospq.nombre}}" required>
                                                         </div>
 
                                                         <div class="form-group col-md-6">
-                                                            <label for="">Disiplina</label>
-                                                            <select type="text" class="form-select" name="disiplina" id="disiplina" value="{{verInstalacion.id_diciplina.nombre}}" required>
+                                                            <label for="">Categoria</label>
+                                                            <select type="text" class="form-select" name="categoriapq" id="categoriapq" value="{{verTipospq.id_categoriap.nombre}}" required>
                                                                 <option selected disabled>---------------</option>
-                                                                {% for d in disiplinas %}
+                                                                {% for d in categoriapqs %}
                                                                 <option
-                                                                {% if d.id == verInstalacion.id_diciplina.id %}
+                                                                {% if d.id == verTipospq.id_categoriap.id %}
                                                                 {{'selected'}}
                                                                 {% endif %}
                                                                 value="{{ d.id }}" >{{ d.nombre }}</option>
@@ -201,13 +201,13 @@
 
                                                         <div class="form-group col-md-12">
                                                             <label for="formFile" class="form-label" style="margin-top: -5px;">Imagen</label>
-                                                            <input class="form-control" type="file" name='imagen' id='imagen' value="{{verInstalacion.imagen}}" placeholder={{verInstalacion.imagen}} >
-                                                            <p>Imagen Actual:</p><img src="../media/{{verInstalacion.imagen}}" alt="prueva" style="width: 100px">
+                                                            <input class="form-control" type="file" name='imagen' id='imagen' value="{{verTipospq.imagen}}" placeholder={{verTipospq.imagen}} >
+                                                            <p>Imagen Actual:</p><img src="../media/{{verTipospq.imagen}}" alt="prueva" style="width: 100px">
                                                         </div>
 
                                                         <div class="form-group col-md-12">
                                                             <label for="">Descripcion</label>
-                                                            <textarea class="form-control" placeholder="" name="descripcion" id="descripcion" style="height: 100px" value="{{verInstalacion.descripcion}}">{{verInstalacion.descripcion}}</textarea>
+                                                            <textarea class="form-control" placeholder="" name="descripcion" id="descripcion" style="height: 100px" value="{{verTipospq.descripcion}}">{{verTipospq.descripcion}}</textarea>
                                                         </div>
 
                                                         {% comment %} <div class="form-group col-md-12">
@@ -229,7 +229,7 @@
                                                         <div class="form-group col-md-12">
                                                             <label for="">Restriciones</label>
                                                             <div class="form-floating">
-                                                                <textarea type="list" class="form-control" placeholder="" name="restricciones" id="restricciones" style="height: 100px" value="{{verInstalacion.restriciones}}">{{verInstalacion.restriciones}}</textarea>
+                                                                <textarea type="list" class="form-control" placeholder="" name="restricciones" id="restricciones" style="height: 100px" value="{{verTipospq.restriciones}}">{{verTipospq.restriciones}}</textarea>
                                                                 <label for="restricciones">Cada restriccion que incluya separelo con una coma.</label>
                                                             </div>
                                                         </div>

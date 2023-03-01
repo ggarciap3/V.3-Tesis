@@ -13,7 +13,7 @@
 
                                     <form class="d-flex" role="search" method="get">
                                         <input class="form-control me-2" type="search" placeholder="Buscar...."
-                                            aria-label="Search" name="buscardisiplina">
+                                            aria-label="Search" name="buscarcategoriapq">
                                         <button class="btn btn-outline-secondary" type="submit" id="buscador"><i
                                                 class="fas fa-search"></i></button>
                                     </form>
@@ -27,9 +27,9 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-12">
-                                    <h2 class="col-12">Tipos de opciones</h2>
+                                    <h2 class="col-12">Categorias</h2>
                                     <div>
-                                        <form action="/registroDisiplina/" method="post" class="row" > {% csrf_token %}
+                                        <form action="/registroCategoriapq/" method="post" class="row" > {% csrf_token %}
                                             <div class="form-group col-md-6">
                                                 <label for="">Nombre</label>
                                                 <input type="text" name="disnombre" id="disnombre" class="form-control" required>
@@ -65,16 +65,16 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {% for d in disiplinas %}
+                                                {% for d in categoriapqs %}
                                                 <tr class='text-center'>
                                                     <td>{{forloop.counter}}</td>
                                                     <td>{{ d.nombre }}</td>
                                                     <td>
 
-                                                        <a href="/editaDisiplina/{{d.id}}"><button class="btn btn-sm btn-success separacion" style="margin-bottom: 3%" data-bs-toggle=""
+                                                        <a href="/editaCategoriapq/{{d.id}}"><button class="btn btn-sm btn-success separacion" style="margin-bottom: 3%" data-bs-toggle=""
                                                             data-bs-target="">
                                                             <i class="fa-solid fa-pen"></i></button></a>
-                                                        <a href="/eliminacionDisiplina/{{d.id}}" class=" btn btn-sm btn-danger btnEliminacion"><i class='fa fa-trash'></i></a>
+                                                        <a href="/eliminacionCategoriapq/{{d.id}}" class=" btn btn-sm btn-danger btnEliminacion"><i class='fa fa-trash'></i></a>
                                                     </td>
                                                 </tr>
                                                 {% endfor %}
@@ -82,7 +82,7 @@
                                         </table>
                                         <!-- Fin Tabla de Reserva -->
                                         <div class="col-md-12">
-                                            <a href="{% url 'adminInstalaciones' %}" class="btn btn-secondary" >Volver</a>
+                                            <a href="{% url 'adminTipospqs' %}" class="btn btn-secondary" >Volver</a>
                                          </div>
                                     </div>
                                 </div>

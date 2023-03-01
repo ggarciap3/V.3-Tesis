@@ -29,7 +29,7 @@
                                         </div>
 
                                         <div class="modal-body">
-                                            <form action="/registrarReserva/" method="post" class="row" >
+                                            <form action="/registrarIngresopq/" method="post" class="row" >
                                                 
                                                 <div class="form-group col-md-6">
                                                     <label for="">Nombre</label>
@@ -138,7 +138,7 @@
                                     </thead>
                                    
                                     <tbody>
-                                        {% for r in reservas %}
+                                        {% for r in ingresopqs %}
                                         <tr class='text-center'>
                                             <td>{{forloop.counter}}</td>
                                             <td>{{r.nombres}}</td>

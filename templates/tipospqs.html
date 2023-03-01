@@ -11,7 +11,7 @@
     </div>
 
     <div class="special-list row g-0">
-      {% for i in instalaciones %}
+      {% for i in tipospqs %}
       <div class="col-md-6 col-lg-6 col-xl-6 p-2">
         <div class="special-img position-relative overflow-hidden">
           <img src="../media/{{i.imagen}}" class="ajustarimg" alt="Imagen 4">
@@ -19,7 +19,7 @@
         </div>
         <div class="text-center">
           <p class="text-capitalize mt-3 mb-1">{{i.nombre}}</p>
-          <a href="/detalleInstalacion/{{i.id}}" class="btn btn-primary mt-3">Ver</a>
+          <a href="/detalleTipospq/{{i.id}}" class="btn btn-primary mt-3">Ver</a>
         </div>
       </div>
       {% endfor %}

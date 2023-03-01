@@ -12,7 +12,7 @@
                         <div class="card-body color-card1">
                             <nav class="navbar navbar-color1">
                                 <div class="container-fluid">
-                                    <h2> Edicion de Disiplina</h2>
+                                    <h2> Edicion de Categoria</h2>
 
 
                                 </div>
@@ -25,14 +25,14 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div>
-                                        <form action="/edicionDisiplinas/" method="post" class="row" > {% csrf_token %}
+                                        <form action="/edicionCategoriapqs/" method="post" class="row" > {% csrf_token %}
                                             <div class="form-group col-md-6">
                                                 <label for="">ID</label>
-                                                <input type="text" name="disiplinaid" id="disiplinaid" class="form-control" value="{{edicionDisiplina.id}}" readonly required>
+                                                <input type="text" name="categoriapqid" id="categoriapqid" class="form-control" value="{{edicionCategoriapqs.id}}" readonly required>
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label for="">Nombre</label>
-                                                <input type="text" name="disiplinanombre" id="disiplinanombre" class="form-control" value="{{edicionDisiplina.nombre}}" required>
+                                                <input type="text" name="categoriapqnombre" id="categoriapqnombre" class="form-control" value="{{edicioncategoriapq.nombre}}" required>
                                             </div>
 
                                             <div class="form-group col-md-6">

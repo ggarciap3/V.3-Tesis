@@ -45,7 +45,7 @@
   background:linear-gradient(310deg,#477168,#3a416f);
 }
 
-/* Pagina instalaciones */
+/* Pagina Tipospqes */
 
 .ajustarimg {
   width: 100%;
@@ -69,7 +69,7 @@
       -ms-transform: scale(1.2);
           transform: scale(1.2);
 }
-/* Pagina instalaciones */
+/* Pagina Tipospqes */
   /* pagina del admin */
 
   .second-text {
@@ -168,7 +168,7 @@
     }
   }
 
-  /* Pagina de Descripcion de la instalacion */
+  /* Pagina de Descripcion de la Tipospq */
 
   .espacio-container{
     margin-top: 5%;

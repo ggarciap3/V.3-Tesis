@@ -21,7 +21,7 @@
                                         </svg> Especificaciones de la categoria
                                     </button>
 
-                                    <a href="/adminDisiplinas"><button type="button" class="btn btn-primary separacion" data-bs-toggle=""
+                                    <a href="/adminCategoriapqs"><button type="button" class="btn btn-primary separacion" data-bs-toggle=""
                                         data-bs-target="" >
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="28" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
                                             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
@@ -31,8 +31,8 @@
 
                                     <form class="d-flex" role="search" method="get">
                                         <input class="form-control me-2" type="search" placeholder="Buscar...."
-                                            aria-label="Search" name="buscarinstalacion">
-                                        <button class="btn btn-outline-secondary" type="submit" id="buscarinstalacion"><i
+                                            aria-label="Search" name="buscartipospq">
+                                        <button class="btn btn-outline-secondary" type="submit" id="buscartipospq"><i
                                                 class="fas fa-search"></i></button>
                                     </form>
 
@@ -42,23 +42,23 @@
                                         <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Datos De La Nueva Instalacion</h5>
+                                                    <h5 class="modal-title" id="exampleModalLabel">Especificaciones de la categoria</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                                 </div>
 
                                                 <div class="modal-body">
-                                                    <form action="/registroInstalacion/" method="post" class="row" enctype="multipart/form-data" > {% csrf_token %}
+                                                    <form action="/registroTipospq/" method="post" class="row" enctype="multipart/form-data" > {% csrf_token %}
                                                         <div class="form-group col-md-6">
                                                             <label for="">Nombre</label>
                                                             <input type="text" name="nombre" id="nombre" class="form-control" required>
                                                         </div>
 
                                                         <div class="form-group col-md-6">
-                                                            <label for="">Disiplina</label>
-                                                            <select type="text" class="form-select" name="disiplina" id="disiplina" required>
+                                                            <label for="">Categoria</label>
+                                                            <select type="text" class="form-select" name="categoriapq" id="categoriapq" required>
                                                                 <option selected disabled>---------------</option>
-                                                                {% for d in disiplinas %}
+                                                                {% for d in categoriapqs %}
                                                                 <option value="{{ d.id }}" >{{ d.nombre }}</option>
                                                                 {% endfor %}
                                                             </select>
@@ -145,7 +145,7 @@
                                         <!-- Tabla de reserva -->
                                         <table class='table table-bordered table-stripe table-hover'>
                                             <tbody>
-                                                {% for i in instalaciones %}
+                                                {% for i in tipospqs %}
                                                 <tr class='text-center'>
                                                     <td>{{forloop.counter}}</td>
                                                     <td><img src="../media/{{i.imagen}}" width="200px"
@@ -156,11 +156,11 @@
                                                                 <tr class='text-center'>
 
                                                                     <tr class='text-center'><th> {{i.nombre}}</th></tr>
-                                                                    <tr class='text-center'> <td><b>Disiplina: </b> {{i.id_diciplina.nombre}}</td></tr>
+                                                                    <tr class='text-center'> <td><b>Categoria: </b> {{i.id_categoriap.nombre}}</td></tr>
                                                                     <tr>
                                                                         <td>
-                                                                            <a href="/verInstalacion/{{i.id}}" class="btn btn-sm btn-primary separacion" ><i class="fa-solid fa-eye"></i></a>
-                                                                            <a href="/eliminacionInstalacion/{{i.id}}" class=" btn btn-sm btn-danger btnEliminacion"><i class='fa fa-trash'></i></a>
+                                                                            <a href="/verTipospq/{{i.id}}" class="btn btn-sm btn-primary separacion" ><i class="fa-solid fa-eye"></i></a>
+                                                                            <a href="/eliminacionTipospq/{{i.id}}" class=" btn btn-sm btn-danger btnEliminacion"><i class='fa fa-trash'></i></a>
                                                                         </td>
                                                                     </tr>
                                                                     

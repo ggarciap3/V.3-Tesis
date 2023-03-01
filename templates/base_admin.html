@@ -24,8 +24,8 @@ class="navbar navbar-expand-lg navbar-light bg-white z-index-3 py-3" style="back
         <i class="fas fa-user me-2" style='color: white'"></i>{{ request.user.first_name }}
     </button>
     <ul class="dropdown-menu white">
-        <li><a class="dropdown-item" href="{% url 'adminReservas' %}">Listas</a></li>
-        <li><a class="dropdown-item" href="{% url 'adminInstalaciones' %}">Categoria</a></li>
+        <li><a class="dropdown-item" href="{% url 'adminIngresopqs' %}">Listas</a></li>
+        <li><a class="dropdown-item" href="{% url 'adminTipospqs' %}">Categoria</a></li>
         <li><a href="/logout" class="dropdown-item">Logout</a></li>
     </ul>
 </div>
@@ -34,13 +34,13 @@ class="navbar navbar-expand-lg navbar-light bg-white z-index-3 py-3" style="back
   <div class="collapse navbar-collapse w-100 pt-3 pb-2 py-lg-0" id="navigation">
     <ul class="navbar-nav navbar-nav-hover mx-auto">
       <li class="nav-item mx-2">
-        <a href="{% url 'adminReservas' %}" class="list-group-item   second-text fw-bold ">
+        <a href="{% url 'adminIngresopqs' %}" class="list-group-item   second-text fw-bold ">
             <i class="fa-solid fa-calendar-day me-2"></i>Listas 
         </a>   
       </li>
 
       <li class="nav-item mx-2">
-        <a href="{% url 'adminInstalaciones' %}" class="list-group-item  second-text fw-bold ">
+        <a href="{% url 'adminTipospqs' %}" class="list-group-item  second-text fw-bold ">
             <i class="fas fa-gift me-2"></i>Categoria
         </a>
       </li>

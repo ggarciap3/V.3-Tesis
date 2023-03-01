@@ -9,7 +9,7 @@
   <div class="row align-items-start">
     <div class="col-lg-7">
       <div class="container special-img borde position-relative overflow-hidden ">
-        <img class=" " src="../media/{{verInstalacion.imagen}}" style="width:50%" alt="Escenario">
+        <img class=" " src="../media/{{verTipospq.imagen}}" style="width:50%" alt="Escenario">
       </div>
     </div>
     <!-- <hr class="vertical"> -->
@@ -22,21 +22,21 @@
       
       <div class="col">
         TIPO
-        <h4> {{verInstalacion.nombre}}</h4>
+        <h4> {{verTipospq.nombre}}</h4>
       </div>
       <hr>
 
       <hr>
       <div class="col">
         DESCRIPCION
-        <h4 align="center"> {{verInstalacion.descripcion}} </h4>
+        <h4 align="center"> {{verTipospq.descripcion}} </h4>
       </div>
       <hr>
 
       <hr>
       <div class="col">
         RESTRICIONES
-        <h4>{{verInstalacion.restriciones}}</h4>
+        <h4>{{verTipospq.restriciones}}</h4>
       </div>
       <hr>
       
@@ -60,7 +60,7 @@
   <div class="row align-items-start p-4 bg-#e1f5fe" style="background: linear-gradient(310deg,#80d8ff,#2ac7d8)">
     <div class="col">
       <h3>FORMULARIO PQRS </h3>
-      <form action="/registroReservas/{{verInstalacion.id}}" method="post" class="row g-3">{% csrf_token %}
+      <form action="/registroIngresopqs/{{verTipospq.id}}" method="post" class="row g-3">{% csrf_token %}
         <div class="col-md-12">
           <label for="inputEmail" class="form-label">Email</label>
           <input type="email" class="form-control" name="correo" id="correo" placeholder="email@example.com">

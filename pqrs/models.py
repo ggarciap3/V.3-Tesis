@@ -3,26 +3,32 @@ from datetime import datetime #tiempo
 
 # Create your models here.
 
-class Disiplina(models.Model):
+class Categoriapq(models.Model):
     nombre = models.CharField(max_length=10, unique=True)
     estado = models.BooleanField(default=True)
+    class Meta:
+        verbose_name_plural = "PQRS_Categorias"
+        verbose_name = ("Categoriapq")
 
     def __str__(self):
         return self.nombre
 
 # Datos De La Nueva Instalacion
-class Instalacion(models.Model):
-    id_diciplina = models.ForeignKey(Disiplina, on_delete=models.CASCADE)
+class Tipospq(models.Model):
+    id_categoriap = models.ForeignKey(Categoriapq, on_delete=models.CASCADE)
     nombre = models.CharField(max_length=30, unique=True)
     descripcion = models.CharField(max_length=200)
     restriciones = models.CharField(max_length=200)
     # precio = models.DecimalField(default=0.00, max_digits=9, decimal_places=2)
     #capacidad = models.CharField(max_length=10)
-    imagen = models.ImageField(upload_to='imagenes/instalaciones/%Y/%m/%d/')
+    imagen = models.ImageField(upload_to='imagenes/tipospqs/%Y/%m/%d/')
     #indumentaria = models.CharField(max_length=200)
     #recomendaciones = models.CharField(max_length=200)
     #equipo_incluido = models.CharField(max_length=200)
     estado = models.BooleanField(default=True)
+    class Meta:
+        verbose_name_plural = "PQRS_TiposPQ"
+        verbose_name = ("Tipospq")
     def __str__(self):
         return self.nombre
 
@@ -55,8 +61,8 @@ opciones_Productos = [
 ]
 
 
-class Reserva(models.Model):
-    id_instalacion = models.ForeignKey(Instalacion, on_delete=models.CASCADE)
+class Ingresopq(models.Model):
+    id_tipospq = models.ForeignKey(Tipospq, on_delete=models.CASCADE)
     nombres = models.CharField(max_length=30)
     apellidos = models.CharField(max_length=30)
     cedula = models.CharField(max_length=10)
@@ -69,3 +75,6 @@ class Reserva(models.Model):
     Presentaciones = models.IntegerField(choices=opciones_Presentaciones)
     Productos = models.IntegerField(choices=opciones_Productos)   
     estado = models.BooleanField(default=True)
+    class Meta:
+        verbose_name_plural = "PQRS_Quejas&Reclamos"
+        verbose_name = ("Ingresopq")
