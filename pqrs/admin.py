@@ -9,7 +9,7 @@ class TipospqAdmin(admin.ModelAdmin):
     list_display = ('id', 'nombre', 'descripcion', 'restriciones', 'imagen', 'estado')   #'precio', 'capacidad','indumentaria','recomendaciones', 'equipo_incluido'
     
 class IngresopqAdmin(admin.ModelAdmin):
-    list_display = ('id', 'nombres', 'apellidos', 'cedula', 'email', 'telefono', 'fecha_creacion', 'fecha_compra', 'codigo_qr', 'cantidad', 'Presentaciones', 'Productos', 'estado')
+    list_display = ('id', 'nombres', 'apellidos', 'cedula', 'email', 'telefono', 'fecha_creacion', 'fecha_compra','num_factura','cantidad','descrip', 'Presentaciones', 'Productos','evidencia', 'estado') #'codigo_qr'
 
 
 admin.site.register(Categoriapq, CategoriapqAdmin)

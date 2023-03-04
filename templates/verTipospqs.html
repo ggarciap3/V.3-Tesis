@@ -65,7 +65,7 @@
                                         <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal"data-bs-target="#exampleModal1" >
                                         <i class="fa-solid fa-pen"></i> Editar</button>
                                         <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal"data-bs-target="#exampleModal2" >
-                                        <i class="fa-solid fa-pen"></i> Reservar</button>
+                                        <i class="fa-solid fa-pen"></i> Agg</button>
                                     </div>
 
                                     <div class="modal fade" id="exampleModal2" tabindex="-1"
@@ -73,7 +73,7 @@
                                         <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Nueva Reserva</h5>
+                                                    <h5 class="modal-title" id="exampleModalLabel">Formulario PQRS</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                                 </div>
@@ -111,7 +111,22 @@
                                                             <label for="">Fecha de reserva</label>
                                                             <input type="date"  name="fecha_reserva" id="fecha_reserva" class="form-control" required>
                                                         </div>
+
+                                                        <div class="form-group col-md-6">
+                                                            <label for="num_factura">Num Factura</label>
+                                                            <input type="text" name="num_factura" id="num_factura" class="form-control" pattern="^[0-99999999999999]+" maxlength="15" minlength="15" required>
+                                                        </div>
+
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Descripcion</label>
+                                                            <input type="text" name="descrip" id="descrip" class="form-control"  required>
+                                                        </div>
         
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Evidencia</label>
+                                                            <input type="text" name="evidencia" id="evidencia" class="form-control"  required>
+                                                        </div>
+
                                                         <div class="form-group col-md-6">
                                                             <label for="">cantidad</label>
                                                             <input type="text" name="cantidad" id="cantidad" class="form-control" pattern="^[0-9999999999]+" maxlength="10" minlength="1" required>

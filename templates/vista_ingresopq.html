@@ -61,63 +61,77 @@
     <div class="col">
       <h3>FORMULARIO PQRS </h3>
       <form action="/registroIngresopqs/{{verTipospq.id}}" method="post" class="row g-3">{% csrf_token %}
-        <div class="col-md-12">
-          <label for="inputEmail" class="form-label">Email</label>
-          <input type="email" class="form-control" name="correo" id="correo" placeholder="email@example.com">
-        </div>
-        <div class="col-6">
-          <label for="inputNombre" class="form-label">Nombres</label>
-          <input type="text" class="form-control" name="nombre" id="nombre" placeholder="">
-        </div>
-        <div class="col-6">
-          <label for="inputApellido" class="form-label">Apellidos</label>
-          <input type="text" class="form-control" name="apellido" id="apellido" placeholder="">
-        </div>
         <div class="form-group col-md-6">
+          <label for="">Nombre</label>
+          <input type="text" name="nombre" id="nombre" class="form-control"  required>
+      </div>
+
+      <div class="form-group col-md-6">
+          <label for="">Apellido</label>
+          <input type="text" name="apellido" id="apellido" class="form-control"  required>
+      </div>
+
+      <div class="form-group col-md-6">
           <label for="">Ci/Ruc</label>
           <input type="text" name="ci" id="ci"class="form-control"   maxlength="10" minlength="10"  required> 
-        </div>
-        <div class="form-group col-md-6">
+      </div>
+
+      <div class="form-group col-md-6">
           <label for="">Telefono</label>
           <input type="text" name="telefono" id="telefono" class="form-control" pattern="^[0-9999999999]+" maxlength="10" minlength="10" required>
-        </div>
+      </div>
 
-        {% comment %} Fecha a Reservar {% endcomment %}
-        <div class="col-md-4">
-          <label for="inputFecha" class="form-label">Fecha de compra</label>
-          <input type="date" class="form-control" name="fecha_reserva" id="fecha_reserva">
-        </div>
+      <div class="form-group col-md-6">
+          <label for="">Correo</label>
+          <input type="email"  name="correo" id="correo"class="form-control" required>
+      </div>
 
-        {% comment %} Hora Inicio {% endcomment %}
-        <div class="col-md-4">
-          <label for="inputHorainicio" class="form-label">Presentaciones</label>
-          <select class="form-control" id="Presentaciones" name="Presentaciones">
-            {% for op in horarioI %}
+      <div class="form-group col-md-6">
+        
+        <label for="inputFecha" class="form-label">Fecha de compra</label>
+          <input type="date"  name="fecha_reserva" id="fecha_reserva" class="form-control" required>
+      </div>
+
+      <div class="form-group col-md-6">
+          <label for="num_factura">Num Factura</label>
+          <input type="text" name="num_factura" id="num_factura" class="form-control" pattern="^[0-99999999999999]+" maxlength="15" minlength="15" required>
+      </div>
+
+      <div class="form-group col-md-6">
+          <label for="">Descripcion</label>
+          <input type="text" name="descrip" id="descrip" class="form-control"  required>
+      </div>
+
+      <div class="form-group col-md-6">
+          <label for="">Evidencia</label>
+          <input type="text" name="evidencia" id="evidencia" class="form-control"  required>
+      </div>
+
+      <div class="form-group col-md-6">
+          <label for="cantidad">Cantidad</label>
+          <input type="text" name="cantidad" id="cantidad" class="form-control" pattern="^[0-9999999999]+" maxlength="10" minlength="1" required>
+      </div>
+        
+      <div class="form-group col-md-6">
+        <label for="Productos">Productos:</label>
+        <select class="form-control" id="Productos" name="Productos">
+          <option selected disabled>---------------</option> 
+          {% for op in horarioF %}
                 <option value="{{ op.0 }}">{{ op.1 }}</option>
             {% endfor %}
-          </select>
-        </div>
+      </select>
+    </div>
 
-        {% comment %} <option value="{{ op.0 }}">{{ op.1 }}</option> {% endcomment %}
+      <div class="form-group col-md-6">
 
-        {% comment %} Hora Fin {% endcomment %}
-        <div class="col-md-4">
-          <label for="inputHorafin" class="form-label">Productos</label>
-          <select class="form-control" id="Productos" name="Productos">
-            {% for op in horarioF %}
-              <option value="{{ op.0 }}">{{ op.1 }}</option>
+        <label for="Presentaciones">Presentaciones  :</label>
+        <select class="form-control" id="Presentaciones" name="Presentaciones">
+          <option selected disabled>---------------</option> 
+          {% for op in horarioI %}
+                <option value="{{ op.0 }}">{{ op.1 }}</option>
             {% endfor %}
-          </select>
-        </div>
-
-        <div class="col-md-4"></div>
-
-        {% comment %} Total a pagar {% endcomment %}
-        <div class="col-md-4">
-          <label for="inputHorafin" class="form-label">Cantidad</label>
-          <input type="text" name="cantidad" id="cantidad" class="form-control" pattern="^[0-9999999999]+" maxlength="10" minlength="1" required>
-        </div>
-
+        </select>
+    </div>
         <div class="col-12">
           <button type="submit" class="btn btn-primary">Guardar</button>
         </div>

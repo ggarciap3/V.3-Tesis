@@ -34,31 +34,30 @@ class Tipospq(models.Model):
 
 # opciones_horaInicio
 opciones_Presentaciones = [
-    [0,'..........'],
-    [1,'500g'],
-    [2,'1kg'],
-    [3,'2kg'],
-    [4,'5kg'],
-    [5,'10kg'],
-    [6,'25kg'],
-    [7,'50kg'],
-    [8,'Stick Packs'],
+    [0,'500g'],
+    [1,'1kg'],
+    [2,'2kg'],
+    [3,'5kg'],
+    [4,'10kg'],
+    [5,'25kg'],
+    [6,'50kg'],
+    [7,'Stick Packs'],
 ]
 # opciones_horaFin
 opciones_Productos = [
-    (0,'..........'),
-    (1,'Azucar Blanca'),
-    (2,'Azucar Morena'),
-    (3,'Azucar Ligero'),
-    (4,'Azucar Turbinado'),
-    (5,'Azucar Blanco Organico'),
-    (6,'Azucar De Coco Organico'),
-    (7,'Panela'),
-    (8,'Steviazucar Blanca'),
-    (9,'Steviazucar Morena'),
-    (10,'Stevia Panela'),
+    (0,'Azucar Blanca'),
+    (1,'Azucar Morena'),
+    (2,'Azucar Ligero'),
+    (3,'Azucar Turbinado'),
+    (4,'Azucar Blanco Organico'),
+    (5,'Azucar De Coco Organico'),
+    (6,'Panela'),
+    (7,'Steviazucar Blanca'),
+    (8,'Steviazucar Morena'),
+    (9,'Stevia Panela'),
 
 ]
+
 
 
 class Ingresopq(models.Model):
@@ -70,10 +69,13 @@ class Ingresopq(models.Model):
     telefono = models.CharField(max_length=10)
     fecha_creacion = models.DateField(default=datetime.now)
     fecha_compra = models.DateField()
-    codigo_qr = models.CharField(max_length=255, unique=True)
+    # codigo_qr = models.CharField(max_length=255, unique=True)
+    num_factura = models.CharField(max_length=15)
+    descrip = models.CharField(max_length=400)
     cantidad = models.CharField(max_length=10)
     Presentaciones = models.IntegerField(choices=opciones_Presentaciones)
-    Productos = models.IntegerField(choices=opciones_Productos)   
+    Productos = models.IntegerField(choices=opciones_Productos) 
+    evidencia = models.CharField(max_length=400)
     estado = models.BooleanField(default=True)
     class Meta:
         verbose_name_plural = "PQRS_Quejas&Reclamos"

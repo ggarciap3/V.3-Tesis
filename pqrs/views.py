@@ -216,12 +216,15 @@ def registroIngresopqs(request,id):
     tipospq.id = int(id)
     tipospq_ingresopq=tipospq
 
-    codigo=str(request.POST['apellido'])+str(request.POST['ci'])+str(request.POST['telefono']) 
+    #codigo=str(request.POST['apellido'])+str(request.POST['ci'])+str(request.POST['telefono'])
+    num_factura = request.POST['num_factura']
+    descrip = request.POST['descrip']
     cantidad = request.POST['cantidad']
 
     fecha_reserva = request.POST['fecha_reserva']
     Presentaciones = request.POST['Presentaciones']
     Productos = request.POST['Productos']
+    evidencia = request.POST['evidencia']
     
 
     Ingresopq.objects.create(
@@ -232,10 +235,13 @@ def registroIngresopqs(request,id):
         email=correo,
         id_tipospq=tipospq_ingresopq,
         fecha_compra=fecha_reserva,
-        codigo_qr=codigo,
+        #codigo_qr=codigo,
+        num_factura=num_factura,
+        descrip=descrip,
         cantidad=cantidad,
         Presentaciones=Presentaciones,
         Productos=Productos,
+        evidencia=evidencia,
 
         
     )
