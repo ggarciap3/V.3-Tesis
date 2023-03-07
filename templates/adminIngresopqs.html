@@ -175,14 +175,19 @@
                                             <td>{{r.Productos}}</td> 
                                             <td>{{r.evidencia}}</td>   
                                             <td>
-                                                  <div class="form-check">
+                                                  {% comment %} <div class="form-check">
                                                     <input class="form-check-input" type="checkbox" value="" id="fcustomCheck1" checked="">
                                                     <label class="custom-control-label" for="customCheck1">En Proceso</label>
-                                                  </div>
+                                                  </div> {% endcomment %}
+
                                                 {% comment %} <a href=""><button class="btn btn-sm btn-success separacion" style="margin-bottom: 3%" data-bs-toggle="modal"
                                                     data-bs-target="#modalEditar">
                                                     <i class="fa-solid fa-pen"></i></button></a>
                                                 <a href="" class=" btn btn-sm btn-danger btnEliminacion"><i class='fa fa-trash'></i></a>  {% endcomment %}
+                                                    
+                                                <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                                    <a href="actualizar/{{r.id_Ingreso}}"><button type="button" class="btn btn-sm btn-success separacion" >Actualizar</button></a>
+                                                </div>
                                             </td>
                                         </tr>
                                         {% endfor %}
