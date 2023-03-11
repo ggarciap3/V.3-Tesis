@@ -3,10 +3,12 @@ from django.core import serializers
 from pqrs.models import Categoriapq,Tipospq, Ingresopq, opciones_Presentaciones, opciones_Productos # opciones_horaFin
 
 from django.http import JsonResponse
-
+from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView,LogoutView
 import ModulPQRS.settings as setting
 import json
+# librerias para el correo electrónico
+import yagmail
 
 # Create your views here.
 def home(request):
@@ -98,28 +100,17 @@ def registroTipospq(request):
     categoriapq=Categoriapq()
     categoriapq.id = int(request.POST['categoriapq'])
     categoriapq_tipospq=categoriapq
-
-    #precio = request.POST['precio']
-    #capacidad = request.POST['capacidad']
     foto = request.FILES['imagen']
     descripcion = request.POST['descripcion']
-    #indumentaria = request.POST['indumentaria']
-    #recomendaciones = request.POST['recomendaciones']
     restricciones = request.POST['restricciones']
-    #equipo_incluido = request.POST['equipo_incluido']
-    
 
     Tipospq.objects.create(
         nombre=nombre,
         id_categoriap=categoriapq_tipospq,
         descripcion=descripcion,
         restriciones=restricciones,
-        #precio=precio,
-        #capacidad=capacidad,
         imagen=foto,
-        #indumentaria=indumentaria,
-        #recomendaciones=recomendaciones,
-        #equipo_incluido=equipo_incluido,
+
     )
     return redirect('/adminTipospqs')
 
@@ -145,35 +136,20 @@ def editaTipospq(request,id):
             categoriapq=Categoriapq()
             categoriapq.id=request.POST.get('categoriapq')
             tipospq.id_categoriap=categoriapq
-
-            #instalacion.precio=request.POST.get('precio')
-            #instalacion.capacidad=request.POST.get('capacidad')
             tipospq.imagen=imagen
             tipospq.descripcion=request.POST.get('descripcion')
-            #instalacion.indumentaria=request.POST.get('indumentaria')
-            #instalacion.recomendaciones=request.POST.get('recomendaciones')
             tipospq.restriciones=request.POST.get('restricciones')
-            #instalacion.equipo_incluido=request.POST.get('equipo_incluido')
-
             tipospq.save()
         else:
             tipospq=Tipospq()
             tipospq.id = ediciontipospq.id
             tipospq.nombre=request.POST.get('nombre')
-            
             categoriapq=Categoriapq()
             categoriapq.id=request.POST.get('categoriapq')
             tipospq.id_categoriap=categoriapq
-
-           # instalacion.precio=request.POST.get('precio')
-            #instalacion.capacidad=request.POST.get('capacidad')
             tipospq.imagen=request.FILES.get('imagen')
-            #instalacion.descripcion=request.POST.get('descripcion')
-            #instalacion.indumentaria=request.POST.get('indumentaria')
             tipospq.recomendaciones=request.POST.get('recomendaciones')
             tipospq.restriciones=request.POST.get('restricciones')
-            #instalacion.equipo_incluido=request.POST.get('equipo_incluido')
-
             tipospq.save()
 
     return redirect('/verTipospq/'+str(tipospq.id))
@@ -190,7 +166,14 @@ def adminIngresopqs(request):
     serialized_data = serializers.serialize('json', listaIngresopq)
     deserialized_data = json.loads(serialized_data)
     # fields son los datos que limpiamos de la base de datos
-    listaNueva = [_["fields"] for _ in deserialized_data]
+    listaNueva = []
+    for i in deserialized_data:
+        listaNueva.append({
+            "pk":i["pk"],
+            **i["fields"] # aqui saco una copia de los fields por cada pk
+        })
+
+    # print(listaCopiaP)
     listaForm = [];
     # creamos una list con los dos arrays
     for d in listaNueva:
@@ -202,10 +185,12 @@ def adminIngresopqs(request):
                 d["Productos"] =  pro[1]
         listaForm.append(d)
     # cambiamos  reservas con el nuevo json  listaFrom    
+    # print(serialized_data)
     data = {'horarioI':opciones_Presentaciones, 'horarioF':opciones_Productos, 'ingresopqs':listaForm}
     return render(request, 'adminIngresopqs.html', data)
 
 def registroIngresopqs(request,id):
+    
     nombre = request.POST['nombre']
     apellido = request.POST['apellido']
     ci = request.POST['ci']
@@ -215,8 +200,6 @@ def registroIngresopqs(request,id):
     tipospq=Tipospq()
     tipospq.id = int(id)
     tipospq_ingresopq=tipospq
-
-    #codigo=str(request.POST['apellido'])+str(request.POST['ci'])+str(request.POST['telefono'])
     num_factura = request.POST['num_factura']
     descrip = request.POST['descrip']
     cantidad = request.POST['cantidad']
@@ -235,7 +218,6 @@ def registroIngresopqs(request,id):
         email=correo,
         id_tipospq=tipospq_ingresopq,
         fecha_compra=fecha_reserva,
-        #codigo_qr=codigo,
         num_factura=num_factura,
         descrip=descrip,
         cantidad=cantidad,
@@ -243,9 +225,9 @@ def registroIngresopqs(request,id):
         Productos=Productos,
         evidencia=evidencia,
 
-        
     )
-    
+    mensaje = f"El usuario {nombre} {apellido}"
+    enviar_correo(mensaje)
     return redirect('/tipospqs')
 
 
@@ -257,3 +239,29 @@ def validarFecha(request):
     }
     
     return JsonResponse(data)
+
+
+#lista de ingresos
+def editaIngresopq(request,id):
+    edicioningresopqs = Ingresopq.objects.get(id=id)
+    return render(request, 'edicionIngresopqs.html', {'edicionIngresopqs': edicioningresopqs})
+
+def edicionIngresopqs(request):
+    id=request.POST['ingresopqid']
+    ingresopq = Ingresopq.objects.get(id=id)
+
+    if request.POST:
+        ingresopq=Categoriapq()
+        ingresopq.id = request.POST.get('ingresopqid')
+        ingresopq.nombre = request.POST.get('ingresopqnombre')
+        ingresopq.save()
+    return redirect('/adminIngresopqs')
+
+# metodo para enviar correo
+def enviar_correo(mensaje:str):
+    lista_correos = User.objects.values_list('email', flat=True)
+    para = list(lista_correos);
+    yag = yagmail.SMTP("grupo25estudio@gmail.com", "ipaoosgxkwyxaoug")
+    body = mensaje
+    # para = ["axha0188@gmail.com", "arongarcia558@gmail.com"]
+    yag.send(to=para, subject="QUEJAS DE USUARIO", contents=body)

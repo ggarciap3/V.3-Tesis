@@ -1,0 +1,122 @@
+{% extends "base_admin.html" %}
+{% load static %}
+{% block title %}Edicion de Ingreso{% endblock %}
+
+
+            {% block content %}
+            <div class="container-fluid px-3 pt-3">
+                <div class="card card-bg">
+                    <div class="card mb-4">
+ 
+
+                        <div class="card-body color-card1">
+                            <nav class="navbar navbar-color1">
+                                <div class="container-fluid">
+                                    <h2> Edicion de Ingreso</h2>
+
+
+                                </div>
+                            </nav>
+                        </div>
+                    </div>
+
+                    <div class="card mt-1">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div>
+                                        <form action="/edicionIngresopqs/" method="post" class="row" > {% csrf_token %}
+                                            <div class="form-group col-md-6">
+                                                <label for="">ID</label>
+                                                <input type="text" name="id" id="id" class="form-control" value="{{edicion.id}}" readonly required>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="">Nombre</label>
+                                                <input type="text" name="ingresopqnombre" id="ingresopqnombre" class="form-control" value="{{edicioningresopq.nombre}}" required>
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label for="">Apellido</label>
+                                                <input type="text" name="ingresopqapellido" id="ingresopqapellido" class="form-control" value="{{edicioningresopq.apellido}}" required>
+                                            </div>
+                                      
+                                            <div class="form-group col-md-6">
+                                                <label for="">Ci/Ruc</label>
+                                                <input type="text" name="ingresopqci" id="ingresopqci"class="form-control"   maxlength="10" minlength="10" value="{{edicioningresopq.ci}}" required> 
+                                            </div>
+                                      
+                                            <div class="form-group col-md-6">
+                                                <label for="">Telefono</label>
+                                                <input type="text" name="ingresopqtelefono" id="ingresopqtelefono" class="form-control" pattern="^[0-9999999999]+" maxlength="10" minlength="10" value="{{edicioningresopq.telefono}}" required>
+                                            </div>
+                                      
+                                            <div class="form-group col-md-6">
+                                                <label for="">Correo</label>
+                                                <input type="email"  name="ingresopqcorreo" id="ingresopqcorreo"class="form-control" value="{{edicioningresopq.correo}}" required>
+                                            </div>
+                                      
+                                            <div class="form-group col-md-6">
+                                              
+                                              <label for="inputFecha" class="form-label">Fecha de compra</label>
+                                                <input type="date"  name="ingresopqfecha_reserva" id="ingresopqfecha_reserva" class="form-control" value="{{edicioningresopq.fecha_reserva}}" required>
+                                            </div>
+                                      
+                                            <div class="form-group col-md-6">
+                                                <label for="num_factura">Num Factura</label>
+                                                <input type="text" name="ingresopqnum_factura" id="ingresopqnum_factura" class="form-control" pattern="^[0-99999999999999]+" maxlength="15" minlength="15" value="{{edicioningresopq.num_factura}}" required>
+                                            </div>
+                                      
+                                            <div class="form-group col-md-6">
+                                                <label for="">Descripcion</label>
+                                                <input type="text" name="ingresopqdescrip" id="ingresopqdescrip" class="form-control" value="{{edicioningresopq.descrip}}" required>
+                                            </div>
+                                      
+                                            <div class="form-group col-md-6">
+                                                <label for="">Evidencia</label>
+                                                <input type="text" name="ingresopqevidencia" id="ingresopqevidencia" class="form-control" value="{{edicioningresopq.evidencia}}"  required>
+                                            </div>
+                                      
+                                            <div class="form-group col-md-6">
+                                                <label for="cantidad">Cantidad</label>
+                                                <input type="text" name="ingresopqcantidad" id="ingresopqcantidad" class="form-control" pattern="^[0-9999999999]+" maxlength="10" minlength="1" value="{{edicioningresopq.cantidad}}" required>
+                                            </div>
+                                              
+                                            <div class="form-group col-md-3">
+                                              <label for="Productos">Productos:</label>
+                                              <select class="form-control" id="ingresopqProductos" name="ingresopqProductos" value="{{edicioningresopq.Productos}}" >
+                                            <option selected disabled>---------------</option> 
+                                                {% for op in horarioF %}
+                                                      <option value="{{ op.0 }}">{{ op.1 }}</option>
+                                                  {% endfor %}
+                                            </select>
+                                          </div>
+                                      
+                                            <div class="form-group col-md-3">
+                                      
+                                              <label for="Presentaciones">Presentaciones  :</label>
+                                              <select class="form-control" id="ingresopqPresentaciones" name="ingresopqPresentaciones" value="{{edicioningresopq.Presentaciones}}">
+                                                <option selected disabled>---------------</option> 
+                                                {% for op in horarioI %}
+                                                      <option value="{{ op.0 }}">{{ op.1 }}</option>
+                                                  {% endfor %}
+                                              </select>
+                                          </div>
+                                                <div class="form-group col-md-12">
+                                                    <br>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <button type="submit" class="btn btn-primary separacion" data-bs-toggle=""
+                                                        data-bs-target="" >
+                                                    Actulizar
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endblock %}
+                

@@ -46,6 +46,11 @@ urlpatterns = [
    
     path('adminIngresopqs/', views.adminIngresopqs, name='adminIngresopqs'),
     path('registroIngresopqs/<id>', views.registroIngresopqs, name='registroIngresopqs'), 
+
+    #lista de ingreso
+    path('edicionIngresopqs/<id>', views.edicionIngresopqs, name='edicionIngresopqs'),
+    path('editaIngresopq/<id>', views.editaIngresopq, name='editaIngresopq'),   
+    
     #Validaciones 
     re_path(r'^validarFecha/$', views.validarFecha, name='validarFecha'),
     
