@@ -12,12 +12,8 @@
         <img class=" " src="../media/{{verTipospq.imagen}}" style="width:50%" alt="Escenario">
       </div>
     </div>
-    <!-- <hr class="vertical"> -->
     <div class="col-lg-5">
-      {% comment %} <div class="col">
-        PRECIO
-        <h2> {{verInstalacion.precio}}</h2>
-      </div> {% endcomment %}
+
       <hr>
       
       <div class="col">
@@ -39,28 +35,15 @@
         <h4>{{verTipospq.restriciones}}</h4>
       </div>
       <hr>
-      
-      {% comment %} <div class="col">
-        <h2> Incluye:</h2>
-        <ul type="cicle">
-          <li>{{verInstalacion.equipo_incluido}} </li>
-          
-        </ul>
-      </div> {% endcomment %}
-
     </div>
   </div>
   
-
   <hr>
-
-  
-  {% comment %} <hr class="line "> {% endcomment %}
 
   <div class="row align-items-start p-4 bg-#e1f5fe" style="background: linear-gradient(310deg,#80d8ff,#2ac7d8)">
     <div class="col">
       <h3>FORMULARIO PQRS </h3>
-      <form action="/registroIngresopqs/{{verTipospq.id}}" method="post" class="row g-3">{% csrf_token %}
+      <form action="/registroIngresopqs/{{verTipospq.id}}" method="post" class="row g-3" enctype="multipart/form-data">{% csrf_token %}
         <div class="form-group col-md-6">
           <label for="">Nombre</label>
           <input type="text" name="nombre" id="nombre" class="form-control"  required>
@@ -103,9 +86,9 @@
       </div>
 
       <div class="form-group col-md-6">
-          <label for="">Evidencia</label>
-          <input type="text" name="evidencia" id="evidencia" class="form-control"  required>
-      </div>
+        <label for="">Evidencia</label>
+        <input type="file" name="evidencia" id="evidencia" class="form-control mb-3" required >
+    </div>
 
       <div class="form-group col-md-6">
           <label for="cantidad">Cantidad</label>

@@ -8,7 +8,6 @@
                 <div class="card card-bg">
                     <div class="card mb-4">
  
-
                         <div class="card-body color-card1">
                             <nav class="navbar navbar-color1">
                                 <div class="container-fluid">
@@ -32,28 +31,12 @@
                                             <img src="../media/{{verTipospq.imagen}}" width="350px" height="350px">
                                         </div>
                                     </div>
-                                    {% comment %} <div class=" col-md-12">
-                                        <div class="text-center col-md-6" style="margin: 0px;border: 0px">
-                                            <h3>Precio:</h3>
-                                            <h5 id="precio1">{{verInstalacion.precio}} </h5>
-                                        </div> {% endcomment %}
-                                        {% comment %} <div class="text-center col-md-6" style="margin: 0px;border: 0px">
-                                            <h3>Capacidad:</h3>
-                                            <h5>{{verInstalacion.capacidad}} personas</h5>
-                                        </div> {% endcomment %}
                                     </div>
                                     <div class="text-center col-md-12" >
                                         <h3>Descripcion:</h3>
                                         <h5 align="left"">{{verTipospq.descripcion}} </h5>
                                     </div>
-                                    {% comment %} <div class="text-center col-md-12" >
-                                        <h3>Indumentaria Necesaria:</h3>
-                                        <h5>{{verInstalacion.indumentaria}} </h5>
-                                    </div> {% endcomment %}
-                                    {% comment %} <div class="text-center col-md-12" >
-                                        <h3>Recomendaciones:</h3>
-                                        <h5>{{verInstalacion.recomendaciones}} </h5>
-                                    </div> {% endcomment %}
+
                                     <div class="text-center col-md-12" >
                                         <h3>Restriciones:</h3>
                                         <h5 align="left" >{{verTipospq.restriciones}} </h5>
@@ -124,7 +107,7 @@
         
                                                         <div class="form-group col-md-6">
                                                             <label for="">Evidencia</label>
-                                                            <input type="text" name="evidencia" id="evidencia" class="form-control"  required>
+                                                            <input type="file" name="evidencia" id="evidencia" class="form-control mb-3" required >
                                                         </div>
 
                                                         <div class="form-group col-md-6">
@@ -155,8 +138,6 @@
                                                                 <br>
                                                             </div>
                                                         </div>
-                                    
-
                                                         <br>
                                                         
                                                         <div class="modal-footer form-group">
@@ -169,9 +150,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-
-
 
                                     <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-lg">
@@ -203,17 +181,6 @@
                                                             </select>
                                                         </div>
 
-                                                        {% comment %} <div class="form-group col-md-6">
-                                                            <label for="">Precio</label>
-                                                            <input type="text" name="precio" id="precio" class="form-control" value="{{verInstalacion.precio}}" required> 
-                                                        </div>
-
-                                                        <div class="form-group col-md-6">
-                                                            <label for="">Capacidad </label>   
-                                                                <input type="text" name="capacidad" id="capacidad" class="form-control" maxlength="10" value="{{verInstalacion.capacidad}}" required>
-
-                                                        </div> {% endcomment %}
-
                                                         <div class="form-group col-md-12">
                                                             <label for="formFile" class="form-label" style="margin-top: -5px;">Imagen</label>
                                                             <input class="form-control" type="file" name='imagen' id='imagen' value="{{verTipospq.imagen}}" placeholder={{verTipospq.imagen}} >
@@ -225,22 +192,6 @@
                                                             <textarea class="form-control" placeholder="" name="descripcion" id="descripcion" style="height: 100px" value="{{verTipospq.descripcion}}">{{verTipospq.descripcion}}</textarea>
                                                         </div>
 
-                                                        {% comment %} <div class="form-group col-md-12">
-                                                            <label for="">Indumentaria</label>
-                                                            <div class="form-floating">
-                                                                <textarea type="list" class="form-control" placeholder="" name="indumentaria" id="indumentaria" style="height: 100px" value="{{verInstalacion.indumentaria}}">{{verInstalacion.indumentaria}}</textarea>
-                                                                <label for="indumentaria">Cada indumentaria que incluya separelo con una coma.</label>
-                                                            </div>
-                                                        </div> {% endcomment %}
-
-                                                        {% comment %} <div class="form-group col-md-12">
-                                                            <label for="">Recomendaciones</label>
-                                                            <div class="form-floating">
-                                                                <textarea type="list" class="form-control" placeholder="" name="recomendaciones" id="recomendaciones" style="height: 100px" value="{{verInstalacion.recomendaciones}}">{{verInstalacion.recomendaciones}}</textarea>
-                                                                <label for="recomendaciones">Cada recomendacion que incluya separelo con una coma.</label>
-                                                            </div>
-                                                        </div> {% endcomment %}
-
                                                         <div class="form-group col-md-12">
                                                             <label for="">Restriciones</label>
                                                             <div class="form-floating">
@@ -248,15 +199,6 @@
                                                                 <label for="restricciones">Cada restriccion que incluya separelo con una coma.</label>
                                                             </div>
                                                         </div>
-
-                                                        {% comment %} <div class="form-group col-md-12 " >
-                                                            <label for="">Equipo Incluido</label>
-                                                            <div class="form-floating">
-                                                                <textarea type="list" class="form-control" placeholder="" name="equipo_incluido" id="equipo_incluido" style="height: 100px" value="{{verInstalacion.equipo_incluido}}">{{verInstalacion.equipo_incluido}}</textarea>
-                                                                <label for="equipo_incluido">Cada equipo que incluya separelo con una coma.</label>
-                                                            </div>
-                                                            
-                                                        </div> {% endcomment %}
                                                         <br>
                                                         
                                                         <div class="modal-footer form-group">
@@ -267,23 +209,11 @@
                                                 </div>
                                             </div>      
                                         </div>
-                                     </div>
-
-
-
-
-
-
-
-                                    
-                                    
-                                        
+                                     </div>      
                                 </div>
                             </div>
                         </div>
                     </div>
-
-
                 </div>
             </div>
 

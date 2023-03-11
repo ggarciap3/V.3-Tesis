@@ -207,7 +207,7 @@ def registroIngresopqs(request,id):
     fecha_reserva = request.POST['fecha_reserva']
     Presentaciones = request.POST['Presentaciones']
     Productos = request.POST['Productos']
-    evidencia = request.POST['evidencia']
+    foto = request.FILES['evidencia']
     
 
     Ingresopq.objects.create(
@@ -223,13 +223,20 @@ def registroIngresopqs(request,id):
         cantidad=cantidad,
         Presentaciones=Presentaciones,
         Productos=Productos,
-        evidencia=evidencia,
+        evidencia=foto,
 
     )
     mensaje = f"El usuario {nombre} {apellido}"
     enviar_correo(mensaje)
     return redirect('/tipospqs')
-
+# metodo para enviar correo
+def enviar_correo(mensaje:str):
+    lista_correos = User.objects.values_list('email', flat=True)
+    para = list(lista_correos);
+    yag = yagmail.SMTP("grupo25estudio@gmail.com", "ipaoosgxkwyxaoug")
+    body = mensaje
+    # para = ["axha0188@gmail.com", "arongarcia558@gmail.com"]
+    yag.send(to=para, subject="QUEJAS DE USUARIO", contents=body)
 
 
 def validarFecha(request):
@@ -257,11 +264,3 @@ def edicionIngresopqs(request):
         ingresopq.save()
     return redirect('/adminIngresopqs')
 
-# metodo para enviar correo
-def enviar_correo(mensaje:str):
-    lista_correos = User.objects.values_list('email', flat=True)
-    para = list(lista_correos);
-    yag = yagmail.SMTP("grupo25estudio@gmail.com", "ipaoosgxkwyxaoug")
-    body = mensaje
-    # para = ["axha0188@gmail.com", "arongarcia558@gmail.com"]
-    yag.send(to=para, subject="QUEJAS DE USUARIO", contents=body)
