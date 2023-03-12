@@ -47,10 +47,12 @@ urlpatterns = [
     path('adminIngresopqs/', views.adminIngresopqs, name='adminIngresopqs'),
     path('registroIngresopqs/<id>', views.registroIngresopqs, name='registroIngresopqs'), 
 
-    #lista de ingreso
-    path('edicionIngresopqs/<id>', views.edicionIngresopqs, name='edicionIngresopqs'),
+     #lista de ingreso
     path('editaIngresopq/<id>', views.editaIngresopq, name='editaIngresopq'),   
-    
+    path('ingresopq/<id>/', views.edicionIngresopqs, name='edicionIngresopqs'),
+    #Actualizar estado
+    path('actualizar_estado/<id>', views.actualizar_estado, name='actualizar_estado'),
+
     #Validaciones 
     re_path(r'^validarFecha/$', views.validarFecha, name='validarFecha'),
     

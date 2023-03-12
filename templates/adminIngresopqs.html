@@ -149,6 +149,7 @@
                                             <th>Productos</th>
                                             <th>Evidencia</th>
                                             <th>Acción</th>
+                                            <th>Estado</th>
                                         </tr>
                                     </thead>
                                    
@@ -170,18 +171,14 @@
                                             <td>{{r.Productos}}</td> 
                                             <td><img src="../media/{{r.evidencia}}" width="200px" class="img-fluid" width="7%"></td></td>   
                                             <td>
-                                                  {% comment %} <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="fcustomCheck1" checked="">
-                                                    <label class="custom-control-label" for="customCheck1">En Proceso</label>
-                                                  </div> {% endcomment %}
-
-                                                {% comment %} <a href=""><button class="btn btn-sm btn-success separacion" style="margin-bottom: 3%" data-bs-toggle="modal"
-                                                    data-bs-target="#modalEditar">
-                                                    <i class="fa-solid fa-pen"></i></button></a>
-                                                <a href="" class=" btn btn-sm btn-danger btnEliminacion"><i class='fa fa-trash'></i></a>  {% endcomment %}
-                                                    
                                                 <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                                    <a href="/editaIngresopq/{{r.pk}}"><button type="button" class="btn btn-sm btn-success separacion" >Actualizar</button></a>
+                                                    <a href="/ingresopq/{{r.pk}}" class="btn btn-sm btn-primary separacion" ><i class="fa-solid fa-eye"></i></a>
+                                                </div>
+                                            </td> 
+                                            <td>  
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" type="checkbox" name="estado" id="estadoSwitch" {% if r.estado %}checked{% endif %}>
+                                                    <label class="form-check-label" for="estadoSwitch">En revision</label>
                                                 </div>
                                             </td>
                                         </tr>

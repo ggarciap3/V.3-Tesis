@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.core import serializers
 from pqrs.models import Categoriapq,Tipospq, Ingresopq, opciones_Presentaciones, opciones_Productos # opciones_horaFin
-
+from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView,LogoutView
@@ -253,14 +253,24 @@ def editaIngresopq(request,id):
     edicioningresopqs = Ingresopq.objects.get(id=id)
     return render(request, 'edicionIngresopqs.html', {'edicionIngresopqs': edicioningresopqs})
 
-def edicionIngresopqs(request):
-    id=request.POST['ingresopqid']
+def edicionIngresopqs(request, id):
     ingresopq = Ingresopq.objects.get(id=id)
+    return render(request, 'edicionIngresopqs.html', {'ingresopq': ingresopq})
 
-    if request.POST:
-        ingresopq=Categoriapq()
-        ingresopq.id = request.POST.get('ingresopqid')
-        ingresopq.nombre = request.POST.get('ingresopqnombre')
-        ingresopq.save()
-    return redirect('/adminIngresopqs')
+
+def actualizar_estado(request, id):
+    # Obtener el objeto a actualizar
+    objeto = get_object_or_404(Ingresopq, id=id)
+
+    # Modificar el valor del campo 'estado' en función del valor enviado en el formulario
+    if request.POST.get('estado') == 'on':
+        objeto.estado = True
+    else:
+        objeto.estado = False
+
+    # Guardar los cambios en la base de datos
+    objeto.save()
+
+    # Redirigir a la página de detalle del objeto actualizado
+    return redirect('edicionIngresopqs', id=objeto.id)
 
