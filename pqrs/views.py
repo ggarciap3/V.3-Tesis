@@ -257,20 +257,21 @@ def edicionIngresopqs(request, id):
     ingresopq = Ingresopq.objects.get(id=id)
     return render(request, 'edicionIngresopqs.html', {'ingresopq': ingresopq})
 
-
 def actualizar_estado(request, id):
-    # Obtener el objeto a actualizar
-    objeto = get_object_or_404(Ingresopq, id=id)
-
-    # Modificar el valor del campo 'estado' en función del valor enviado en el formulario
-    if request.POST.get('estado') == 'on':
-        objeto.estado = True
+    ingresopq = Ingresopq.objects.get(id=id)
+    if request.method == 'POST':
+        estado = request.POST.get('estado', False)
+        if estado == 'on':
+            ingresopq.estado = True
+            ingresopq.save()
+            if ingresopq.email and ingresopq.estado:
+                mensaje = "Su queja o reclamo ha sido atendido. Gracias por su confianza."
+                yag = yagmail.SMTP("grupo25estudio@gmail.com", "ipaoosgxkwyxaoug")
+                yag.send(to=ingresopq.email, subject="Quejas o Reclamo", contents=mensaje)
+        else:
+            ingresopq.estado = False
+            ingresopq.save()
+        return redirect('edicionIngresopqs', id=id)
     else:
-        objeto.estado = False
-
-    # Guardar los cambios en la base de datos
-    objeto.save()
-
-    # Redirigir a la página de detalle del objeto actualizado
-    return redirect('edicionIngresopqs', id=objeto.id)
-
+        print("Error")
+    return render(request, 'edicionIngresopqs.html', { 'ingresopq': ingresopq})

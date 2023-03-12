@@ -35,7 +35,7 @@
                                
                             <div class="card mt-1">
                                 <div class="card-body">
-                                    <h5><b>Estado de la Queja o Reclamo {{ ingresopq.estado }}</h5>
+                                    <h5><b>Estado de la Queja o Reclamo </h5> <!--{{ ingresopq.estado }}-->
                                     <!-- otros detalles del ingreso -->
                                     <form method="post" action="{% url 'actualizar_estado' id=ingresopq.pk %}">
                                         {% csrf_token %}

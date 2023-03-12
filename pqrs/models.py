@@ -68,7 +68,7 @@ class Ingresopq(models.Model):
     Presentaciones = models.IntegerField(choices=opciones_Presentaciones)
     Productos = models.IntegerField(choices=opciones_Productos) 
     evidencia = models.ImageField(upload_to='imagenes/ingresopqs/%Y/%m/%d/') 
-    estado = models.BooleanField(default=True)
+    estado = models.BooleanField(default=False)
     class Meta:
         verbose_name_plural = "PQRS_Quejas&Reclamos"
         verbose_name = ("Ingresopq")
