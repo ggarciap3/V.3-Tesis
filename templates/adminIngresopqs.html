@@ -13,113 +13,12 @@
                 <div class="card-body">
                     <nav class="navbar bg-light">
                         <div class="container-fluid">
-                            <div class="modal fade" id="exampleModal" tabindex="-1"
-                                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Formulario PQRS</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-
-                                        <div class="modal-body">
-                                            <form action="/registrarIngresopq/" method="post" class="row" >
-                                                
-                                                <div class="form-group col-md-6">
-                                                    <label for="">Nombre</label>
-                                                    <input type="text" name="nombre" id="nombre" class="form-control"  required>
-                                                </div>
-                                          
-                                                <div class="form-group col-md-6">
-                                                    <label for="">Apellido</label>
-                                                    <input type="text" name="apellido" id="apellido" class="form-control"  required>
-                                                </div>
-                                          
-                                                <div class="form-group col-md-6">
-                                                    <label for="">Ci/Ruc</label>
-                                                    <input type="text" name="ci" id="ci"class="form-control"   maxlength="10" minlength="10"  required> 
-                                                </div>
-                                          
-                                                <div class="form-group col-md-6">
-                                                    <label for="">Telefono</label>
-                                                    <input type="text" name="telefono" id="telefono" class="form-control" pattern="^[0-9999999999]+" maxlength="10" minlength="10" required>
-                                                </div>
-                                          
-                                                <div class="form-group col-md-6">
-                                                    <label for="">Correo</label>
-                                                    <input type="email"  name="correo" id="correo"class="form-control" required>
-                                                </div>
-                                          
-                                                <div class="form-group col-md-6">
-                                                  
-                                                  <label for="inputFecha" class="form-label">Fecha de compra</label>
-                                                    <input type="date"  name="fecha_reserva" id="fecha_reserva" class="form-control" required>
-                                                </div>
-                                          
-                                                <div class="form-group col-md-6">
-                                                    <label for="num_factura">Num Factura</label>
-                                                    <input type="text" name="num_factura" id="num_factura" class="form-control" pattern="^[0-99999999999999]+" maxlength="15" minlength="15" required>
-                                                </div>
-                                          
-                                                <div class="form-group col-md-6">
-                                                    <label for="">Descripcion</label>
-                                                    <input type="text" name="descrip" id="descrip" class="form-control"  required>
-                                                </div>
-                                          
-                                                <div class="form-group col-md-6">
-                                                    <label for="">Evidencia</label>
-                                                    <input type="file" name="evidencia" id="evidencia" class="form-control mb-3" required >
-                                                </div>
-                                          
-                                                <div class="form-group col-md-6">
-                                                    <label for="cantidad">Cantidad</label>
-                                                    <input type="text" name="cantidad" id="cantidad" class="form-control" pattern="^[0-9999999999]+" maxlength="10" minlength="1" required>
-                                                </div>
-                                                  
-                                                <div class="form-group col-md-3">
-                                                  <label for="Productos">Productos:</label>
-                                                  <select class="form-control" id="Productos" name="Productos">
-                                                <option selected disabled>---------------</option> 
-                                                    {% for op in horarioF %}
-                                                          <option value="{{ op.0 }}">{{ op.1 }}</option>
-                                                      {% endfor %}
-                                                </select>
-                                              </div>
-                                          
-                                                <div class="form-group col-md-3">
-                                          
-                                                  <label for="Presentaciones">Presentaciones  :</label>
-                                                  <select class="form-control" id="Presentaciones" name="Presentaciones">
-                                                    <option selected disabled>---------------</option> 
-                                                    {% for op in horarioI %}
-                                                          <option value="{{ op.0 }}">{{ op.1 }}</option>
-                                                      {% endfor %}
-                                                  </select>
-                                              </div>
-                                                    <div class="form-group col-md-12">
-                                                        <br>
-                                                    </div>
-                                                </div>
-
-                                                <div class="modal-footer form-group">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">Cerrar</button>
-                                                    <button type="submit" class="btn btn-primary" >Guardar</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <form class="d-flex" role="search" method="get">
-                                <input class="form-control me-2" type="search" placeholder="Buscar...."
-                                    aria-label="Search" name="buscarres">
-                                <button class="btn btn-outline-secondary" type="submit" id="buscador"><i
-                                        class="fas fa-search"></i></button>
+                            <form class="d-flex" action="{% url 'adminIngresopqs' %}" method="GET">
+                                <input class="form-control me-2" placeholder="Buscar...."
+                                aria-label="Search" type="text" name="buscarres">
+                                <button class="btn btn-outline-secondary" type="submit"><i
+                                    class="fas fa-search"></i></button>
                             </form>
-
                         </div>
                     </nav>
                 </div>

@@ -159,6 +159,35 @@ def eliminacionTipospq(request,id):
     tipospq.delete()
     
     return redirect('/adminTipospqs') 
+# Allan
+# def adminIngresopqs(request):
+#     listaIngresopq = Ingresopq.objects.all()
+#     # lo transforma en json
+#     serialized_data = serializers.serialize('json', listaIngresopq)
+#     deserialized_data = json.loads(serialized_data)
+#     # fields son los datos que limpiamos de la base de datos
+#     listaNueva = []
+#     for i in deserialized_data:
+#         listaNueva.append({
+#             "pk":i["pk"],
+#             **i["fields"] # aqui saco una copia de los fields por cada pk
+#         })
+
+#     # print(listaCopiaP)
+#     listaForm = [];
+#     # creamos una list con los dos arrays
+#     for d in listaNueva:
+#         for pre, pro in zip(opciones_Presentaciones, opciones_Productos):
+#             if d["Presentaciones"] == pre[0]:
+#                 d["Presentaciones"] =  pre[1]
+
+#             if d["Productos"] == pro[0]:
+#                 d["Productos"] =  pro[1]
+#         listaForm.append(d)
+#     # cambiamos  reservas con el nuevo json  listaFrom    
+#     # print(serialized_data)
+#     data = {'horarioI':opciones_Presentaciones, 'horarioF':opciones_Productos, 'ingresopqs':listaForm}
+#     return render(request, 'adminIngresopqs.html', data)
 
 def adminIngresopqs(request):
     listaIngresopq = Ingresopq.objects.all()
@@ -173,21 +202,30 @@ def adminIngresopqs(request):
             **i["fields"] # aqui saco una copia de los fields por cada pk
         })
 
-    # print(listaCopiaP)
-    listaForm = [];
-    # creamos una list con los dos arrays
-    for d in listaNueva:
-        for pre, pro in zip(opciones_Presentaciones, opciones_Productos):
-            if d["Presentaciones"] == pre[0]:
-                d["Presentaciones"] =  pre[1]
+    # filtrar por nombre si hay una búsqueda
+    busqueda = request.GET.get("buscarres")
+    if busqueda:
+        listaNueva = [d for d in listaNueva if busqueda.lower() in d["nombres"].lower()]
+        if not listaNueva:
+            # si no se encontraron resultados, volver a cargar todos los elementos
+            listaNueva = [{'pk': i.pk, **i.__dict__} for i in listaIngresopq]
 
+    listaForm = []
+    for d in listaNueva:
+        for pre in opciones_Presentaciones:
+            if d["Presentaciones"] == pre[0]:
+                d["Presentaciones"] = pre[1]
+                
+        for pro in opciones_Productos:
             if d["Productos"] == pro[0]:
-                d["Productos"] =  pro[1]
+                d["Productos"] = pro[1]
+            
         listaForm.append(d)
-    # cambiamos  reservas con el nuevo json  listaFrom    
-    # print(serialized_data)
+
     data = {'horarioI':opciones_Presentaciones, 'horarioF':opciones_Productos, 'ingresopqs':listaForm}
     return render(request, 'adminIngresopqs.html', data)
+
+
 
 def registroIngresopqs(request,id):
     
