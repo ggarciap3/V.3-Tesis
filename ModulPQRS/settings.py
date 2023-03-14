@@ -150,6 +150,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = '/'
 # si se tiene exito al loguearse
-LOGIN_REDIRECT_URL='/adminTipospqs'
+LOGIN_REDIRECT_URL='/adminIngresopqs'
 # si se tiene exito al salir de  la seccion
 LOGOUT_REDIRECT_URL='/'
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'grupo25estudio@gmail.com'
+EMAIL_HOST_PASSWORD = 'ipaoosgxkwyxaoug'
