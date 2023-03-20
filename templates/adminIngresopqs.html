@@ -1,6 +1,6 @@
 {% extends "base_admin.html" %}
 {% load static %}
-{% block title %}Instalaciones{% endblock %}
+{% block title %}Listas{% endblock %}
 
 
 {% block content %}
@@ -54,6 +54,7 @@
                                    
                                     <tbody>
                                         {% for r in ingresopqs %}
+                                            {% if r.estado == False %}
                                         <tr class='text-center'>
                                             <td>{{forloop.counter}}</td>
                                             <td>{{r.nombres}}</td>
@@ -77,10 +78,11 @@
                                             <td>  
                                                 <div class="form-check form-switch">
                                                     <input class="form-check-input" type="checkbox" name="estado" id="estadoSwitch" {% if r.estado %}checked{% endif %}>
-                                                    <label class="form-check-label" for="estadoSwitch">En revision</label>
+                                                    <label class="form-check-label" for="estadoSwitch">En proceso</label>
                                                 </div>
                                             </td>
                                         </tr>
+                                        {% endif %}
                                         {% endfor %}
                                     </tbody>
                                 </table>
@@ -92,6 +94,8 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block script %}

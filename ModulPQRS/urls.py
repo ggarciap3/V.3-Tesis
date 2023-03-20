@@ -52,6 +52,9 @@ urlpatterns = [
     path('ingresopq/<id>/', views.edicionIngresopqs, name='edicionIngresopqs'),
     #Actualizar estado
     path('actualizar_estado/<id>', views.actualizar_estado, name='actualizar_estado'),
+    #para agg doc
+    path('subir_doc/', views.subir_doc, name='subir_doc'),
+    path('ingresopq/<int:id>/editar_doc/', views.edicionPdf, name='edicionPdf'),
 
     #Validaciones 
     re_path(r'^validarFecha/$', views.validarFecha, name='validarFecha'),

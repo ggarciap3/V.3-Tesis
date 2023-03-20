@@ -1,0 +1,78 @@
+{% extends "base_admin.html" %}
+{% load static %}
+
+{% block title %}Terminar procesos{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-3 pt-3">
+    <div class="card card-bg">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h3 class="card-title">Terminar procesos</h3>
+            </div>
+
+            <div class="card-body color-card1">
+            
+                <div class="card mt-1">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="table-responsive">
+                                    <!-- Tabla de reserva -->
+                                    <table class='table table-bordered table-hover table-striped'>
+                                        <thead class="text-center text-white" style="background: linear-gradient(310deg,#b453c7,#2ac7d8)" >
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Nombre</th>
+                                                <th>CI/RUC</th>
+                                                <th>Correo</th>
+                                                <th>Fecha de Compra</th>
+                                                <th>Num Factura</th>
+                                                <th>Descripcion</th>
+                                                <th>Subir Doc</th>
+                                                <th>Estado</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for r in ingresopqs %}
+                                                {% if r.estado %}
+                                            <tr class='text-center'>
+                                                <td>{{forloop.counter}}</td>
+                                                <td>{{r.nombres}} {{r.apellidos}}</td>
+                                                <td>{{r.cedula}}</td>
+                                                <td>{{r.email}}</td>
+                                                <td>{{r.fecha_compra}}</td>
+                                                <td>{{r.num_factura}}</td>
+                                                <td>{{r.descrip}}</td>
+                                                <td>
+                                                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                                        <a href="{% url 'edicionPdf' id=r.pk %}" class="btn btn-sm btn-primary separacion"><i class="fa-solid fa-upload"></i></a>
+                                                    </div>
+                                                </td> 
+                                                <td>  
+                                                    <div class="form-check form-switch">
+                                                        <input class="form-check-input" type="checkbox" name="estadodoc" id="estadodocSwitch" {% if r.estadodoc %}checked{% endif %}>
+                                                        <label class="form-check-label" for="estadodocSwitch">
+                                                            {% if r.estadodoc %}
+                                                                Revisado
+                                                            {% else %}
+                                                                En proceso
+                                                            {% endif %}
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            {% endif %}
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>         
+{% endblock %}

@@ -4,7 +4,7 @@ from datetime import datetime #tiempo
 # Create your models here.
 
 class Categoriapq(models.Model):
-    nombre = models.CharField(max_length=10, unique=True)
+    nombre = models.CharField(max_length=50, unique=True)
     estado = models.BooleanField(default=True)
     class Meta:
         verbose_name_plural = "PQRS_Categorias"
@@ -16,7 +16,7 @@ class Categoriapq(models.Model):
 # Datos De tipospq
 class Tipospq(models.Model):
     id_categoriap = models.ForeignKey(Categoriapq, on_delete=models.CASCADE)
-    nombre = models.CharField(max_length=30, unique=True)
+    nombre = models.CharField(max_length=50, unique=True)
     descripcion = models.CharField(max_length=200)
     restriciones = models.CharField(max_length=200)
     imagen = models.ImageField(upload_to='imagenes/tipospqs/%Y/%m/%d/')
@@ -69,6 +69,9 @@ class Ingresopq(models.Model):
     Productos = models.IntegerField(choices=opciones_Productos) 
     evidencia = models.ImageField(upload_to='imagenes/ingresopqs/%Y/%m/%d/') 
     estado = models.BooleanField(default=False)
+    doc = models.FileField(upload_to='pdfs/ingresopq/%Y/%m/%d/', blank=True, null=True)
+    estadodoc = models.BooleanField(default=False)
     class Meta:
         verbose_name_plural = "PQRS_Quejas&Reclamos"
         verbose_name = ("Ingresopq")
+    

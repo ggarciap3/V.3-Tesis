@@ -83,17 +83,15 @@ DATABASES = {
     }
 }
 # DATABASES = {
-#     'default': {
-#         # 'ENGINE': 'django.db.backends.sqlite3',
-#         # 'NAME': BASE_DIR / 'db.sqlite3',
+#      'default': {
 #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'db_reserva', 
-#         'HOST': 'localhost',
+#         'NAME': 'db_PQRS', 
 #         'USER': 'postgres',
-#         'PASSWORD': '123456',
+#         'PASSWORD': '2021',
+#         'HOST': 'localhost',
 #         'PORT': '5432',
 #     }
-# }
+#  }
 
 
 # Password validation
