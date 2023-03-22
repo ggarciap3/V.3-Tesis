@@ -1,0 +1,48 @@
+{% extends "base_admin.html" %}
+{% load static %}
+{% block title %}Ver Ingreso{% endblock %}
+
+                    {% block content %}
+
+                    <div class="container-fluid px-3 pt-3">
+                        <div class="card card-bg">
+                            <div class="card mb-4">
+                                <div class="card-body color-card1">
+                                    <nav class="navbar navbar-color1">
+                                        <div class="container-fluid">
+                                            <h2> Visualizar Evidencia</h2>
+                                        </div>
+                                    </nav>
+                                </div>
+                            </div>
+                            <div class="card mt-1">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <img src="{{ ingresopq.evidencia.url }}" alt="{{ ingresopq.num_factura}}">
+                                    </div>
+                                    <div class="card mt-1">
+                                        <div class="card-body">
+                                        <h5><b>Nombre del cliente</h5>
+                                        <h6>{{ ingresopq.nombres}} {{ ingresopq.apellidos}}</h6>
+                                        <h5><b>Numero de factura</h5>
+                                        <h6>{{ ingresopq.num_factura}}</h6>
+                                        <h5><b>Descripcion</h5>
+                                        <h6>{{ ingresopq.descrip}}</h6>
+                                        <h5><b>Fecha de compra</h5>
+                                        <h6>{{ ingresopq.fecha_compra}}</h6>
+                                        </div>                            
+                                    </div>
+                            <div class="card mt-1">
+                                <div class="card-body">
+                                    <div class="col-md-12">
+                                        <a href="{% url 'subir_doc' %}" class="btn btn-secondary" >Volver</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+                  {% endblock %}
+
+                  

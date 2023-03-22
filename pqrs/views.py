@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.core import serializers
-from pqrs.models import Categoriapq,Tipospq, Ingresopq, opciones_Presentaciones, opciones_Productos# opciones_horaFin
+from pqrs.models import Categoriapq,Tipospq, Ingresopq, opciones_Presentaciones, opciones_Productos
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.models import User
@@ -242,7 +242,7 @@ def registroIngresopqs(request,id):
     descrip = request.POST['descrip']
     cantidad = request.POST['cantidad']
 
-    fecha_reserva = request.POST['fecha_reserva']
+    fecha_compra = request.POST['fecha_compra']
     Presentaciones = request.POST['Presentaciones']
     Productos = request.POST['Productos']
     foto = request.FILES['evidencia']
@@ -255,7 +255,7 @@ def registroIngresopqs(request,id):
         telefono=telefono,
         email=correo,
         id_tipospq=tipospq_ingresopq,
-        fecha_compra=fecha_reserva,
+        fecha_compra=fecha_compra,
         num_factura=num_factura,
         descrip=descrip,
         cantidad=cantidad,
@@ -282,13 +282,13 @@ def enviar_correo(mensaje:str):
     yag.send(to=para, subject="Ingreso de quejas y reclamos", contents=body)
 
 
-def validarFecha(request):
-    fecha = request.GET.get('fecha_reserva', None)
-    data = {
-        'is_taken': Ingresopq.objects.filter(fecha_compra=fecha).exists()
-    }
+# def validarFecha(request):
+#     fecha = request.GET.get('fecha_compra', None)
+#     data = {
+#         'is_taken': Ingresopq.objects.filter(fecha_compra=fecha).exists()
+#     }
     
-    return JsonResponse(data)
+#     return JsonResponse(data)
 
 
 #lista de ingresos
@@ -310,7 +310,7 @@ def actualizar_estado(request, id):
             if ingresopq.email and ingresopq.estado:
                 nombres = ingresopq.nombres
                 apellidos = ingresopq.apellidos
-                mensaje = f"Estimado {nombres} {apellidos},\n\nReciba un cordial saludo de parte del departamento de Servicio al cliente de Wall-eat. Queremos confirmarle que hemos recibido de manera exitosa su queja/reclamo y agradecemos el tiempo que se ha tomado para contarnos su experiencia y hacernos saber su preocupación. \n\nNos tomamos muy en serio su experiencia y queremos asegurarnos de que sea abordada de manera adecuada y eficiente. Para ello, hemos iniciado una investigación sobre su caso para poder identificar cualquier problema o error que haya surgido en el proceso y tomar las medidas necesarias para solucionarlo.\n\nSu satisfacción es nuestra prioridad y haremos todo lo posible para resolver este problema. Esperamos tener una solución para su caso en el menor tiempo posible y lo mantendremos actualizado/a sobre cualquier avance.\n\nAtentamente,\nServicio al cliente Wall-eat"
+                mensaje = f"Estimado/a {nombres} {apellidos},\n\nReciba un cordial saludo de parte del departamento de Servicio al cliente de Wall-eat. Queremos confirmarle que hemos recibido de manera exitosa su queja/reclamo y agradecemos el tiempo que se ha tomado para contarnos su experiencia y hacernos saber su preocupación. \n\nNos tomamos muy en serio su experiencia y queremos asegurarnos de que sea abordada de manera adecuada y eficiente. Para ello, hemos iniciado una investigación sobre su caso para poder identificar cualquier problema o error que haya surgido en el proceso y tomar las medidas necesarias para solucionarlo.\n\nSu satisfacción es nuestra prioridad y haremos todo lo posible para resolver este problema. Esperamos tener una solución para su caso en el menor tiempo posible y lo mantendremos actualizado/a sobre cualquier avance.\n\nAtentamente,\nServicio al cliente Wall-eat"
                 yag = yagmail.SMTP("grupo25estudio@gmail.com", "ipaoosgxkwyxaoug")
                 yag.send(to=ingresopq.email, subject="Respuesta a ingreso de queja/reclamo", contents=mensaje)
         else:
@@ -334,9 +334,13 @@ def edicionPdf(request, id):
         ingresopq.estadodoc = request.POST.get('estadodoc') == 'on'  # actualizar estado del documento
         ingresopq.save()
         if ingresopq.email and ingresopq.estadodoc:
-            mensaje = f"Estimado {ingresopq.nombres} {ingresopq.apellidos},\n\nNos complace informarle que hemos resuelto su queja de manera satisfactoria y queremos agradecerle por su paciencia durante todo este proceso.\n\nNuestro equipo ha trabajado diligentemente para resolver el problema que experimentó, por lo que hemos tomado las medidas para asegurarnos de que no vuelva a suceder en el futuro. Esperamos que pueda sentirse satisfecho/a con nuestros productos/servicios una vez más.\n\nSi tiene alguna otra inquietud o pregunta, no dude en ponerse en contacto con nosotros a través de este mismo correo electrónico o mediante nuestra línea de atención al cliente.\n\nAtentamente,\n\nServicio al cliente Wall-eat"
+            mensaje = f"Estimado/a {ingresopq.nombres} {ingresopq.apellidos},\n\nNos complace informarle que hemos resuelto su queja de manera satisfactoria y queremos agradecerle por su paciencia durante todo este proceso.\n\nNuestro equipo ha trabajado diligentemente para resolver el problema que experimentó, por lo que hemos tomado las medidas para asegurarnos de que no vuelva a suceder en el futuro. Esperamos que pueda sentirse satisfecho/a con nuestros productos/servicios una vez más.\n\nSi tiene alguna otra inquietud o pregunta, no dude en ponerse en contacto con nosotros a través de este mismo correo electrónico o mediante nuestra línea de atención al cliente.\n\nAtentamente,\n\nServicio al cliente Wall-eat"
             yag = yagmail.SMTP("grupo25estudio@gmail.com", "ipaoosgxkwyxaoug")
             yag.send(to=ingresopq.email, subject="Solución a queja/reclamo", contents=mensaje)
         return redirect('subir_doc')
 
     return render(request, 'edicionPdf.html', {'ingresopq': ingresopq})
+
+def verIngresopqs(request, id):
+    ingresopq = Ingresopq.objects.get(id=id)
+    return render(request, 'verIngresopqs.html', {'ingresopq': ingresopq})
