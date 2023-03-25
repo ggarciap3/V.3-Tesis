@@ -281,7 +281,7 @@ def registroIngresopqs(request,id):
 def enviar_correo(mensaje:str):
     lista_correos = User.objects.values_list('email', flat=True)
     para = list(lista_correos);
-    yag = yagmail.SMTP("grupo25estudio@gmail.com", "ipaoosgxkwyxaoug")
+    yag = yagmail.SMTP("wall.eat.company@gmail.com", "okvlmdknjqpsnjej")
     body = mensaje
     # para = ["axha0188@gmail.com", "arongarcia558@gmail.com"]
     yag.send(to=para, subject="Ingreso de quejas y reclamos", contents=body)
@@ -316,7 +316,7 @@ def actualizar_estado(request, id):
                 nombres = ingresopq.nombres
                 apellidos = ingresopq.apellidos
                 mensaje = f"Estimado/a {nombres} {apellidos},\n\nReciba un cordial saludo de parte del departamento de Servicio al cliente de Wall-eat. Queremos confirmarle que hemos recibido de manera exitosa su queja/reclamo y agradecemos el tiempo que se ha tomado para contarnos su experiencia y hacernos saber su preocupación. \n\nNos tomamos muy en serio su experiencia y queremos asegurarnos de que sea abordada de manera adecuada y eficiente. Para ello, hemos iniciado una investigación sobre su caso para poder identificar cualquier problema o error que haya surgido en el proceso y tomar las medidas necesarias para solucionarlo.\n\nSu satisfacción es nuestra prioridad y haremos todo lo posible para resolver este problema. Esperamos tener una solución para su caso en el menor tiempo posible y lo mantendremos actualizado/a sobre cualquier avance.\n\nAtentamente,\nServicio al cliente Wall-eat"
-                yag = yagmail.SMTP("grupo25estudio@gmail.com", "ipaoosgxkwyxaoug")
+                yag = yagmail.SMTP("wall.eat.company@gmail.com", "okvlmdknjqpsnjej")
                 yag.send(to=ingresopq.email, subject="Respuesta a ingreso de queja/reclamo", contents=mensaje)
         else:
             ingresopq.estado = False
@@ -340,7 +340,7 @@ def edicionPdf(request, id):
         ingresopq.save()
         if ingresopq.email and ingresopq.estadodoc:
             mensaje = f"Estimado/a {ingresopq.nombres} {ingresopq.apellidos},\n\nNos complace informarle que hemos resuelto su queja de manera satisfactoria y queremos agradecerle por su paciencia durante todo este proceso.\n\nNuestro equipo ha trabajado diligentemente para resolver el problema que experimentó, por lo que hemos tomado las medidas para asegurarnos de que no vuelva a suceder en el futuro. Esperamos que pueda sentirse satisfecho/a con nuestros productos/servicios una vez más.\n\nSi tiene alguna otra inquietud o pregunta, no dude en ponerse en contacto con nosotros a través de este mismo correo electrónico o mediante nuestra línea de atención al cliente.\n\nAtentamente,\n\nServicio al cliente Wall-eat"
-            yag = yagmail.SMTP("grupo25estudio@gmail.com", "ipaoosgxkwyxaoug")
+            yag = yagmail.SMTP("wall.eat.company@gmail.com", "okvlmdknjqpsnjej")
             yag.send(to=ingresopq.email, subject="Solución a queja/reclamo", contents=mensaje)
         return redirect('subir_doc')
 
