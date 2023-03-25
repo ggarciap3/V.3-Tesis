@@ -1,0 +1,118 @@
+{% extends "base_admin.html" %}
+{% load static %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="card mt-1">
+    <div class="card-body d-flex flex-row">
+        <div class="card mb-4 col-4">
+            <div class="card-body">
+                <div class="row">
+                    <div class="card-header">
+                        <h3 class="card-title">Total de Datos</h3>
+                    </div>
+                    <div class="col-2">
+                        <i class="fas fa-clipboard-list fa-2x text-warning"></i>
+                    </div>
+                    <div class="col-8">
+                        <p class="lead">Datos ingresados: {{ total }}</p>
+                    </div>
+                    <div class="col-2"></div>
+                    <div class="col-2">
+                        <i class="fas fa-clipboard-list fa-2x text-warning"></i>
+                    </div>
+                    <div class="col-8">
+                        <p class="lead">Registros    por revisar: {{ totalN }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card mb-4 col-4">
+            <div class="card-body">
+                <div class="row">
+                    <div class="card-header">
+                        <h3 class="card-title">Total de Datos</h3>
+                    </div>
+                    <div class="col-2">
+                        <i class="fas fa-clipboard-list fa-2x text-warning"></i>
+                    </div>
+                    <div class="col-8">
+                        <p class="lead">Registros en revision: {{ totalR }}</p>
+                    </div>
+                    <div class="col-2"></div>
+                    <div class="col-2">
+                        <i class="fas fa-clipboard-list fa-2x text-warning"></i>
+                    </div>
+                    <div class="col-8">
+                        <p class="lead">Registros Terminados: {{ totalT }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card mb-4 col-4">
+            <div class="card-body">
+                <div class="row">
+                    <div class="card-header">
+                        <h3 class="card-title">Total de Datos</h3>
+                    </div>
+                    <div class="col-2">
+                        <i class="fas fa-clipboard-list fa-2x text-warning"></i>
+                    </div>
+                    <div class="col-8">
+                        <p class="lead">Registros en revision: {{ cantidad }}</p>
+                    </div>
+                    <div class="col-2"></div>
+                    <div class="col-2">
+                        <i class="fas fa-clipboard-list fa-2x text-warning"></i>
+                    </div>
+                    <div class="col-8">
+                        <p class="lead">Registros Terminados: {{ total_cantidad }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+        <div class="container-fluid px-3 pt-3">
+            <div class="card card-bg">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h3 class="card-title">Gráfico de estado</h3>
+                            </div>
+                            <div>
+                                {{ plotly_html_estado|safe }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h3 class="card-title">Gráfico de estado doc</h3>
+                            </div>
+                            <div>
+                                {{plotly_html_estadodoc|safe }}
+                              </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h3 class="card-title">Gráfico de productos</h3>
+                            </div>
+                            <div>
+                                {{plotly_html_productos|safe }}
+                              </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+{% endblock %}
+
+{% block script %}
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+{% endblock %}

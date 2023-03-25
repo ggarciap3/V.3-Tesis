@@ -10,6 +10,11 @@ import json
 # librerias para el correo electrónico
 import yagmail
 from django.core.files.storage import FileSystemStorage
+
+import matplotlib.pyplot as plt
+from django.db.models import Count,Sum
+import plotly.graph_objs as go
+
 # Create your views here.
 def home(request):
     return render(request, 'home.html')
@@ -344,3 +349,93 @@ def edicionPdf(request, id):
 def verIngresopqs(request, id):
     ingresopq = Ingresopq.objects.get(id=id)
     return render(request, 'verIngresopqs.html', {'ingresopq': ingresopq})
+
+def admin_dash(request):
+    # Obtener los registros de Ingresopq
+    ingresos = Ingresopq.objects.all()
+    # Obtener el número total de registros
+    total = ingresos.count()
+    cantidad = ingresos.count()
+    # Obtener el número de registros con estado "True" y "estadodoc" "True"
+    totalR = Ingresopq.objects.filter(estado=True).count()
+    totalT = Ingresopq.objects.filter(estadodoc=True).count()
+    totalN = Ingresopq.objects.filter(estado=False).count()
+    total_cantidad = Ingresopq.objects.aggregate(Sum('cantidad'))['cantidad__sum']
+    # Obtener el número de registros para cada valor de "estado"
+    counts_estado = ingresos.values('estado').annotate(count=Count('estado'))
+    # Crear el gráfico de barras para "estado"
+    fig_estado = go.Figure(
+        go.Bar(
+            x=['No revisado', 'En revisión'],
+            y=[counts_estado.get(estado=False)['count'], counts_estado.get(estado=True)['count']],
+            marker_color=['lightcoral', 'lightskyblue']
+        ),
+        layout_title='Registros por estado'
+    )
+
+    # Obtener el número de registros para cada valor de "estadodoc"
+    counts_estadodoc = ingresos.values('estadodoc').annotate(count=Count('estadodoc'))
+    # Crear el gráfico de barras para "estadodoc"
+    fig_estadodoc = go.Figure(
+        go.Bar(
+            x=['En revisión', 'Revisado'],
+            y=[counts_estadodoc.get(estadodoc=False)['count'], counts_estadodoc.get(estadodoc=True)['count']],
+            marker_color=['lightskyblue', '#CD5C5C']
+        ),
+        layout_title='Registros por estado de documento'
+    )
+    
+    # Obtener el número de registros para cada valor de "Productos"
+    counts_productos = ingresos.values('Productos').annotate(count=Count('Productos'))
+
+    # Convertir el QuerySet en una lista
+    ls_productos = []
+    for item in counts_productos:
+        if item['Productos'] == 1:
+            ls_productos.append('Azucar Blanca')
+        elif item['Productos'] == 2:
+            ls_productos.append('Azucar Morena')
+        elif item['Productos'] == 3:
+            ls_productos.append('Azucar Ligero')
+        elif item['Productos'] == 4:
+            ls_productos.append('Azucar Turbinado')
+        elif item['Productos'] == 5:
+            ls_productos.append('Azucar Blanco Organico')
+        elif item['Productos'] == 6:
+            ls_productos.append('Azucar De Coco Organico')
+        elif item['Productos'] == 7:
+            ls_productos.append('Panela')
+        elif item['Productos'] == 8:
+            ls_productos.append('Steviazucar Blanca')
+        elif item['Productos'] == 9:
+            ls_productos.append('Steviazucar Morena')
+        elif item['Productos'] == 10:
+            ls_productos.append('Stevia Panela')
+
+    # Crear el gráfico de pastel para "Productos"
+    fig_productos = go.Figure(
+        go.Pie(
+            labels=ls_productos,
+            values=[item['count'] for item in counts_productos]
+        ),
+        layout_title='Registros por productos'
+    )
+
+    # Generar el HTML de los gráficos
+    plotly_html_estado = fig_estado.to_html(full_html=False)
+    plotly_html_estadodoc = fig_estadodoc.to_html(full_html=False)
+    plotly_html_productos = fig_productos.to_html(full_html=False)
+    
+    # Crear el diccionario de contexto y renderizar el template
+    context = {
+        'total': total,
+        'total_cantidad': total_cantidad,
+        'cantidad': cantidad,
+        'totalR': totalR,
+        'totalT': totalT,
+        'totalN': totalN,
+        'plotly_html_estado': plotly_html_estado,
+        'plotly_html_estadodoc': plotly_html_estadodoc,
+        'plotly_html_productos': plotly_html_productos,
+    }
+    return render(request, 'admin_dash.html', context)

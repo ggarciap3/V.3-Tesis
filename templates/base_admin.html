@@ -35,6 +35,12 @@ class="navbar navbar-expand-lg navbar-light bg-white z-index-3 py-3" style="back
   <div class="collapse navbar-collapse w-100 pt-3 pb-2 py-lg-0" id="navigation">
     <ul class="navbar-nav navbar-nav-hover mx-auto">
       <li class="nav-item mx-2">
+        <a href="{% url 'admin_dash' %}" class="list-group-item  second-text fw-bold ">
+          <i class="fa-brands fa-stack-overflow me-2"></i>Dashboard
+        </a>
+      </li>
+
+      <li class="nav-item mx-2">
         <a href="{% url 'adminIngresopqs' %}" class="list-group-item   second-text fw-bold ">
           <i class="fa-solid fa-layer-group me-2"></i>Listas 
         </a>   
@@ -57,9 +63,7 @@ class="navbar navbar-expand-lg navbar-light bg-white z-index-3 py-3" style="back
             class="fas fa-power-off me-2"></i>Logout</a> 
       </li>
 
-      <li class="nav-item mx-2">
-      </li>
-    </ul>
+  
 
     <ul class="navbar-nav d-lg-block d-none ">
       <a class="navbar-brand text-white" href=""  rel="tooltip" data-placement="bottom" target="_blank">
@@ -144,6 +148,7 @@ class="navbar navbar-expand-lg navbar-light bg-white z-index-3 py-3" style="back
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
     crossorigin="anonymous"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     {% block script %}{% endblock %}
    
 

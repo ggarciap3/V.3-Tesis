@@ -56,7 +56,7 @@ urlpatterns = [
     path('subir_doc/', views.subir_doc, name='subir_doc'),
     path('ingresopq/<int:id>/editar_doc/', views.edicionPdf, name='edicionPdf'),
     path('ingresopqs/<id>/', views.verIngresopqs, name='verIngresopqs'),
-
+    path('dashboard/', views.admin_dash, name='admin_dash'),
 
     #Validaciones 
     # re_path(r'^validarFecha/$', views.validarFecha, name='validarFecha'),

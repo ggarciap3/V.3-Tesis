@@ -3,3 +3,6 @@ psycopg2==2.9.5
 pillow
 yagmail
 secure-smtplib
+plotly==5.3.1
+matplotlib 
+numpy
