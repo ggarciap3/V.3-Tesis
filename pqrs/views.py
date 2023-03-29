@@ -3,6 +3,7 @@ from django.core import serializers
 from pqrs.models import Categoriapq,Tipospq, Ingresopq, opciones_Presentaciones, opciones_Productos
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse, JsonResponse
+from django.core.files.storage import default_storage
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView,LogoutView
 import ModulPQRS.settings as setting
@@ -164,35 +165,7 @@ def eliminacionTipospq(request,id):
     tipospq.delete()
     
     return redirect('/adminTipospqs') 
-# Allan
-# def adminIngresopqs(request):
-#     listaIngresopq = Ingresopq.objects.all()
-#     # lo transforma en json
-#     serialized_data = serializers.serialize('json', listaIngresopq)
-#     deserialized_data = json.loads(serialized_data)
-#     # fields son los datos que limpiamos de la base de datos
-#     listaNueva = []
-#     for i in deserialized_data:
-#         listaNueva.append({
-#             "pk":i["pk"],
-#             **i["fields"] # aqui saco una copia de los fields por cada pk
-#         })
 
-#     # print(listaCopiaP)
-#     listaForm = [];
-#     # creamos una list con los dos arrays
-#     for d in listaNueva:
-#         for pre, pro in zip(opciones_Presentaciones, opciones_Productos):
-#             if d["Presentaciones"] == pre[0]:
-#                 d["Presentaciones"] =  pre[1]
-
-#             if d["Productos"] == pro[0]:
-#                 d["Productos"] =  pro[1]
-#         listaForm.append(d)
-#     # cambiamos  reservas con el nuevo json  listaFrom    
-#     # print(serialized_data)
-#     data = {'horarioI':opciones_Presentaciones, 'horarioF':opciones_Productos, 'ingresopqs':listaForm}
-#     return render(request, 'adminIngresopqs.html', data)
 
 def adminIngresopqs(request):
     listaIngresopq = Ingresopq.objects.all()
@@ -243,7 +216,7 @@ def registroIngresopqs(request,id):
     tipospq=Tipospq()
     tipospq.id = int(id)
     tipospq_ingresopq=tipospq
-    num_factura = request.POST['num_factura']
+    lote = request.POST['lote']
     descrip = request.POST['descrip']
     cantidad = request.POST['cantidad']
 
@@ -261,7 +234,7 @@ def registroIngresopqs(request,id):
         email=correo,
         id_tipospq=tipospq_ingresopq,
         fecha_compra=fecha_compra,
-        num_factura=num_factura,
+        lote=lote,
         descrip=descrip,
         cantidad=cantidad,
         Presentaciones=Presentaciones,
@@ -281,19 +254,10 @@ def registroIngresopqs(request,id):
 def enviar_correo(mensaje:str):
     lista_correos = User.objects.values_list('email', flat=True)
     para = list(lista_correos);
-    yag = yagmail.SMTP("grupo25estudio@gmail.com", "ipaoosgxkwyxaoug")
+    yag = yagmail.SMTP("grupo25estudio@gmail.com", "kwsjvszlatplyuln")
     body = mensaje
     # para = ["axha0188@gmail.com", "arongarcia558@gmail.com"]
     yag.send(to=para, subject="Ingreso de quejas y reclamos", contents=body)
-
-
-# def validarFecha(request):
-#     fecha = request.GET.get('fecha_compra', None)
-#     data = {
-#         'is_taken': Ingresopq.objects.filter(fecha_compra=fecha).exists()
-#     }
-    
-#     return JsonResponse(data)
 
 
 #lista de ingresos
@@ -316,7 +280,7 @@ def actualizar_estado(request, id):
                 nombres = ingresopq.nombres
                 apellidos = ingresopq.apellidos
                 mensaje = f"Estimado/a {nombres} {apellidos},\n\nReciba un cordial saludo de parte del departamento de Servicio al cliente de Wall-eat. Queremos confirmarle que hemos recibido de manera exitosa su queja/reclamo y agradecemos el tiempo que se ha tomado para contarnos su experiencia y hacernos saber su preocupación. \n\nNos tomamos muy en serio su experiencia y queremos asegurarnos de que sea abordada de manera adecuada y eficiente. Para ello, hemos iniciado una investigación sobre su caso para poder identificar cualquier problema o error que haya surgido en el proceso y tomar las medidas necesarias para solucionarlo.\n\nSu satisfacción es nuestra prioridad y haremos todo lo posible para resolver este problema. Esperamos tener una solución para su caso en el menor tiempo posible y lo mantendremos actualizado/a sobre cualquier avance.\n\nAtentamente,\nServicio al cliente Wall-eat"
-                yag = yagmail.SMTP("grupo25estudio@gmail.com", "ipaoosgxkwyxaoug")
+                yag = yagmail.SMTP("grupo25estudio@gmail.com", "kwsjvszlatplyuln")
                 yag.send(to=ingresopq.email, subject="Respuesta a ingreso de queja/reclamo", contents=mensaje)
         else:
             ingresopq.estado = False
@@ -336,12 +300,19 @@ def edicionPdf(request, id):
 
     if request.method == 'POST':
         ingresopq.doc = request.FILES.get('doc', ingresopq.doc)  # actualizar documento
+        archivopfd = request.FILES['doc']
         ingresopq.estadodoc = request.POST.get('estadodoc') == 'on'  # actualizar estado del documento
         ingresopq.save()
+        ruta_archivo = default_storage.save('pdfqueja.pdf', archivopfd)
+        # print(ingresopq.doc)
         if ingresopq.email and ingresopq.estadodoc:
+            # obtiene la ruta completa del archivo almacenado
+            ruta_completa_archivo = default_storage.path(ruta_archivo)
             mensaje = f"Estimado/a {ingresopq.nombres} {ingresopq.apellidos},\n\nNos complace informarle que hemos resuelto su queja de manera satisfactoria y queremos agradecerle por su paciencia durante todo este proceso.\n\nNuestro equipo ha trabajado diligentemente para resolver el problema que experimentó, por lo que hemos tomado las medidas para asegurarnos de que no vuelva a suceder en el futuro. Esperamos que pueda sentirse satisfecho/a con nuestros productos/servicios una vez más.\n\nSi tiene alguna otra inquietud o pregunta, no dude en ponerse en contacto con nosotros a través de este mismo correo electrónico o mediante nuestra línea de atención al cliente.\n\nAtentamente,\n\nServicio al cliente Wall-eat"
-            yag = yagmail.SMTP("grupo25estudio@gmail.com", "ipaoosgxkwyxaoug")
-            yag.send(to=ingresopq.email, subject="Solución a queja/reclamo", contents=mensaje)
+            adjunto = ruta_completa_archivo
+            yag = yagmail.SMTP("grupo25estudio@gmail.com", "kwsjvszlatplyuln")
+            yag.send(to=ingresopq.email, subject="Solución a queja/reclamo", contents=mensaje,attachments=adjunto)
+            
         return redirect('subir_doc')
 
     return render(request, 'edicionPdf.html', {'ingresopq': ingresopq})
@@ -360,34 +331,49 @@ def admin_dash(request):
     totalR = Ingresopq.objects.filter(estado=True).count()
     totalT = Ingresopq.objects.filter(estadodoc=True).count()
     totalN = Ingresopq.objects.filter(estado=False).count()
+
+    totalQ = Ingresopq.objects.filter(id_tipospq=1).count()
+    totalRe = Ingresopq.objects.filter(id_tipospq=2).count()
+    
+    
     total_cantidad = Ingresopq.objects.aggregate(Sum('cantidad'))['cantidad__sum']
-    # Obtener el número de registros para cada valor de "estado"
-    counts_estado = ingresos.values('estado').annotate(count=Count('estado'))
-    # Crear el gráfico de barras para "estado"
-    fig_estado = go.Figure(
-        go.Bar(
-            x=['No revisado', 'En revisión'],
-            y=[counts_estado.get(estado=False)['count'], counts_estado.get(estado=True)['count']],
-            marker_color=['lightcoral', 'lightskyblue']
+
+    # Crear el gráfico de barras para "Estados de la queja/reclamo"
+     
+    fig_estado = go.Figure(go.Bar(
+            x=[totalR, totalT, totalN],
+            y=['En revisión', 'Revisado', 'No revisado'],
+            orientation='h',
+            marker_color=['lightskyblue', '#CD5C5C', 'lightcoral']
         ),
-        layout_title='Registros por Revision'
+        layout_title='Registros por estado y estado de documento'
+)
+
+    # Obtener el número de registros para cada valor de "id_tipospq"
+    counts_tipospq = Ingresopq.objects.values('id_tipospq').annotate(count=Count('id_tipospq'))
+
+    # Convertir el QuerySet en una lista
+    ls_tipospq = []
+    for item in counts_tipospq:
+        ls_tipospq.append(item['id_tipospq'])
+    # Obtener los nombres de Tipospq correspondientes a cada valor de "id_tipospq"
+    tipospq_objs = Tipospq.objects.filter(id__in=ls_tipospq)
+    tipospq_dict = {tp.id: tp.nombre for tp in tipospq_objs}
+    ls_tipospq_names = [tipospq_dict.get(id_tipospq, id_tipospq) for id_tipospq in ls_tipospq]
+    # Crear el gráfico de barras para "id_tipospq"
+    fig_tipospq = go.Figure(
+        go.Bar(
+            x=ls_tipospq_names,
+            y=[item['count'] for item in counts_tipospq],
+            marker_color=['#1b004b','#7f00b2']
+        ),
+        layout_title='Registros por tipos novedad'
     )
 
-    # Obtener el número de registros para cada valor de "estadodoc"
-    counts_estadodoc = ingresos.values('estado').annotate(count=Count('estadodoc'))
-    # Crear el gráfico de barras para "estadodoc"
-    fig_estadodoc = go.Figure(
-        go.Bar(
-            x=['En revisión', 'Revisado'],
-            y=[counts_estadodoc.get(estado=True)['count'], counts_estadodoc.get(estadodoc=True)['count']],
-            marker_color=['lightskyblue', '#CD5C5C']
-        ),
-        layout_title='Datos revisados'
-    )
+
     
     # Obtener el número de registros para cada valor de "Productos"
     counts_productos = ingresos.values('Productos').annotate(count=Count('Productos'))
-
     # Convertir el QuerySet en una lista
     ls_productos = []
     for item in counts_productos:
@@ -423,8 +409,8 @@ def admin_dash(request):
 
     # Generar el HTML de los gráficos
     plotly_html_estado = fig_estado.to_html(full_html=False)
-    plotly_html_estadodoc = fig_estadodoc.to_html(full_html=False)
     plotly_html_productos = fig_productos.to_html(full_html=False)
+    plotly_html_tipospq = fig_tipospq.to_html(full_html=False)
     
     # Crear el diccionario de contexto y renderizar el template
     context = {
@@ -434,8 +420,12 @@ def admin_dash(request):
         'totalR': totalR,
         'totalT': totalT,
         'totalN': totalN,
+
+        'totalQ': totalQ,
+        'totalRe' : totalRe,
+
         'plotly_html_estado': plotly_html_estado,
-        'plotly_html_estadodoc': plotly_html_estadodoc,
+        'plotly_html_tipospq': plotly_html_tipospq,
         'plotly_html_productos': plotly_html_productos,
     }
     return render(request, 'admin_dash.html', context)

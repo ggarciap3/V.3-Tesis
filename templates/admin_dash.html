@@ -10,51 +10,62 @@
             <div class="card-body">
                 <div class="row">
                     <div class="card-header">
-                        <h3 class="card-title">Total de Datos</h3>
+                        <h3 class="card-title">Total de datos</h3>
                     </div>
                     <div class="col-2">
                         <i class="fas fa-clipboard-list fa-2x text-warning"></i>
                     </div>
                     <div class="col-8">
-                        <p class="lead">Datos ingresados: {{ total }}</p>
+                        <p class="lead">No revisado: {{ totalN }}</p>
                     </div>
                     <div class="col-2"></div>
                     <div class="col-2">
                         <i class="fas fa-clipboard-list fa-2x text-warning"></i>
                     </div>
                     <div class="col-8">
-                        <p class="lead">Datos por revisar: {{ totalN }}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="card mb-4 col-4">
-            <div class="card-body">
-                <div class="row">
-                    <div class="card-header">
-                        <h3 class="card-title">Total de Datos</h3>
-                    </div>
-                    <div class="col-2">
-                        <i class="fas fa-clipboard-list fa-2x text-warning"></i>
-                    </div>
-                    <div class="col-8">
-                        <p class="lead">Datos en revision: {{ totalR }}</p>
+                        <p class="lead">En revision: {{ totalR }}</p>
                     </div>
                     <div class="col-2"></div>
                     <div class="col-2">
                         <i class="fas fa-clipboard-list fa-2x text-warning"></i>
                     </div>
                     <div class="col-8">
-                        <p class="lead">Datos revisados: {{ totalT }}</p>
+                        <p class="lead">Finalizado: {{ totalT }}</p>
                     </div>
+                    <div class="col-2"></div>                                     
                 </div>
             </div>
         </div>
+
+
         <div class="card mb-4 col-4">
             <div class="card-body">
                 <div class="row">
                     <div class="card-header">
-                        <h3 class="card-title">Total de Datos</h3>
+                        <h3 class="card-title">Total de datos</h3>
+                    </div>
+                    <div class="col-2">
+                        <i class="fas fa-clipboard-list fa-2x text-warning"></i>
+                    </div>
+                    <div class="col-8">
+                        <p class="lead">Reclamos: {{ totalRe }}</p>
+                    </div>
+                    <div class="col-2"></div>
+                    <div class="col-2">
+                        <i class="fas fa-clipboard-list fa-2x text-warning"></i>
+                    </div>
+                    <div class="col-8">
+                        <p class="lead">Quejas: {{ totalQ }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4 col-4">
+            <div class="card-body">
+                <div class="row">
+                    <div class="card-header">
+                        <h3 class="card-title">Total de datos</h3>
                     </div>
                     {% comment %} <div class="col-2">
                         <i class="fas fa-clipboard-list fa-2x text-warning"></i>
@@ -67,7 +78,7 @@
                         <i class="fas fa-clipboard-list fa-2x text-warning"></i>
                     </div>
                     <div class="col-8">
-                        <p class="lead">Suma de todos los productos: {{ total_cantidad }}</p>
+                        <p class="lead">Cantidad de productos con novedades: {{ total_cantidad }}</p>
                     </div>
                 </div>
             </div>
@@ -87,13 +98,14 @@
                             </div>
                         </div>
                     </div>
+                    
                     <div class="col-md-4">
                         <div class="card mb-4">
                             <div class="card-header">
-                                <h3 class="card-title">Gráfico por terminacion</h3>
+                                <h3 class="card-title">Gráfico por tipo de novedad</h3>
                             </div>
                             <div>
-                                {{plotly_html_estadodoc|safe }}
+                                {{plotly_html_tipospq|safe }}
                               </div>
                         </div>
                     </div>

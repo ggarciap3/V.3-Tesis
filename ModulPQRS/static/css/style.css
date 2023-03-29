@@ -4,7 +4,7 @@
 .titulo {
   font-family: "Poppins", sans-serif;
   text-shadow: 3px 2px 4px rgb(156, 156, 156);
-  color: rgb(32, 65, 210)
+  color: rgb(57, 9, 87)
 }
 
 .container-nav{
@@ -42,7 +42,7 @@
 }
 
 .footern {
-  background:linear-gradient(310deg,#477168,#3a416f);
+  background:linear-gradient(310deg,#15425a,#50218d);
 }
 
 /* Pagina Tipospqes */

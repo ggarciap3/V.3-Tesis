@@ -52,7 +52,7 @@ class Migration(migrations.Migration):
                 ('telefono', models.CharField(max_length=10)),
                 ('fecha_creacion', models.DateField(default=datetime.datetime.now)),
                 ('fecha_compra', models.DateField()),
-                ('num_factura', models.CharField(max_length=15)),
+                ('lote', models.CharField(max_length=15)),
                 ('descrip', models.CharField(max_length=400)),
                 ('cantidad', models.CharField(max_length=10)),
                 ('Presentaciones', models.IntegerField(choices=[[0, '..........'], [1, '500g'], [2, '1kg'], [3, '2kg'], [4, '5kg'], [5, '10kg'], [6, '25kg'], [7, '50kg'], [8, 'Stick Packs']])),

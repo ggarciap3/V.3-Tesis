@@ -39,13 +39,13 @@
                                             <th>CI/RUC</th>
                                             <th>Telefono</th>
                                             <th>Correo</th>
-                                            <th>Fecha de Registro</th>
-                                            <th>Fecha de Compra</th>
-                                            <th>Num Factura</th>
-                                            <th>Descripcion</th>
+                                            <th>Fecha de registro</th>
+                                            <th>Fecha de compra</th>
+                                            <th>Lote</th>
+                                            <th>Descripción</th>
                                             <th>Cantidad</th>                   
-                                            <th>Presentaciones</th>   
-                                            <th>Productos</th>
+                                            <th>Presentación</th>   
+                                            <th>Producto</th>
                                             <th>Evidencia</th>
                                             <th>Acción</th>
                                             <th>Estado</th>
@@ -64,7 +64,7 @@
                                             <td>{{r.email}}</td>
                                             <td>{{r.fecha_creacion}}</td>
                                             <td>{{r.fecha_compra}}</td>
-                                            <td>{{r.num_factura}}</td>
+                                            <td>{{r.lote}}</td>
                                             <td>{{r.descrip}}</td>
                                             <td>{{r.cantidad}}</td>
                                             <td>{{r.Presentaciones}}</td> 
@@ -78,7 +78,7 @@
                                             <td>  
                                                 <div class="form-check form-switch">
                                                     <input class="form-check-input" type="checkbox" name="estado" id="estadoSwitch" {% if r.estado %}checked{% endif %}>
-                                                    <label class="form-check-label" for="estadoSwitch">En proceso</label>
+                                                    <label class="form-check-label" for="estadoSwitch">Ingresado</label>
                                                 </div>
                                             </td>
                                         </tr>

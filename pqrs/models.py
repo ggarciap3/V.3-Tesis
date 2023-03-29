@@ -62,7 +62,7 @@ class Ingresopq(models.Model):
     telefono = models.CharField(max_length=10)
     fecha_creacion = models.DateField(default=datetime.now)
     fecha_compra = models.DateField()
-    num_factura = models.CharField(max_length=15)
+    lote = models.CharField(max_length=7)
     descrip = models.CharField(max_length=400)
     cantidad = models.CharField(max_length=10)
     Presentaciones = models.IntegerField(choices=opciones_Presentaciones)
