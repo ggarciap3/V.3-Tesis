@@ -15,6 +15,7 @@ from django.core.files.storage import FileSystemStorage
 import matplotlib.pyplot as plt
 from django.db.models import Count,Sum
 import plotly.graph_objs as go
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def home(request):
@@ -77,6 +78,7 @@ def detalleTipospq(request,id):
     data = {'horarioI':opciones_Presentaciones, 'horarioF':opciones_Productos,'verTipospq':vertipospq, 'categoripqs': listaCategoriapqs,'ingresopqs':listaIngresopqs}
     return render(request, 'vista_ingresopq.html',data)
 
+@login_required
 def adminCategoriapqs(request):
     busqueda= request.GET.get("buscarcategoriapq")
     listaCategoriapqs = Categoriapq.objects.all()
@@ -87,6 +89,7 @@ def adminCategoriapqs(request):
         ).distinct()
     return render(request, 'adminCategoriapqs.html',{'categoriapqs': listaCategoriapqs})
 
+@login_required
 def registroCategoriapq(request):
     nombre = request.POST['disnombre']
 
@@ -95,10 +98,12 @@ def registroCategoriapq(request):
     )
     return redirect('/adminCategoriapqs')
 
+@login_required
 def editaCategoriapq(request,id):
     edicioncategoriapq = Categoriapq.objects.get(id=id)
     return render(request, 'edicionCategoriapqs.html', {'edicionCategoriapq': edicioncategoriapq})
 
+@login_required
 def edicionCategoriapqs(request):
     id=request.POST['categoriapqid']
     categoriapq = Categoriapq.objects.get(id=id)
@@ -110,12 +115,14 @@ def edicionCategoriapqs(request):
         categoriapq.save()
     return redirect('/adminCategoriapqs')
 
+@login_required
 def eliminacionCategoriapq(request,id):
     categoriapq=Categoriapq.objects.get(id=id)
     categoriapq.delete()
     
     return redirect('/adminCategoriapqs')    
 
+@login_required
 def adminTipospqs(request):
     listaCategoriapqs = Categoriapq.objects.all()
     listaTipospqs = Tipospq.objects.all()
@@ -128,6 +135,7 @@ def adminTipospqs(request):
 
     return render(request, 'adminTipospqs.html',{'categoriapqs': listaCategoriapqs,'tipospqs': listaTipospqs})
 
+@login_required
 def registroTipospq(request):
     nombre = request.POST['nombre']
 
@@ -136,7 +144,7 @@ def registroTipospq(request):
     categoriapq_tipospq=categoriapq
     foto = request.FILES['imagen']
     descripcion = request.POST['descripcion']
-    restricciones = request.POST['restricciones']
+    #restricciones = request.POST['restricciones']
 
     Tipospq.objects.create(
         nombre=nombre,
@@ -158,6 +166,7 @@ def verTipospq(request,id):
     
     return render(request, 'verTipospqs.html',  data)
 
+@login_required
 def editaTipospq(request,id):
     ediciontipospq = Tipospq.objects.get(id=id)
     imagen=ediciontipospq.imagen
@@ -188,13 +197,14 @@ def editaTipospq(request,id):
 
     return redirect('/verTipospq/'+str(tipospq.id))
 
+@login_required
 def eliminacionTipospq(request,id):
     tipospq=Tipospq.objects.get(id=id)
     tipospq.delete()
     
     return redirect('/adminTipospqs') 
 
-
+@login_required
 def adminIngresopqs(request):
     listaIngresopq = Ingresopq.objects.all()
     # lo transforma en json
@@ -287,16 +297,16 @@ def enviar_correo(mensaje:str):
     # para = ["axha0188@gmail.com", "arongarcia558@gmail.com"]
     yag.send(to=para, subject="Ingreso de quejas y reclamos", contents=body)
 
-
+@login_required
 #lista de ingresos
 def editaIngresopq(request,id):
     edicioningresopqs = Ingresopq.objects.get(id=id)
     return render(request, 'edicionIngresopqs.html', {'edicionIngresopqs': edicioningresopqs})
-
+@login_required
 def edicionIngresopqs(request, id):
     ingresopq = Ingresopq.objects.get(id=id)
     return render(request, 'edicionIngresopqs.html', {'ingresopq': ingresopq})
-
+@login_required
 def actualizar_estado(request, id):
     ingresopq = Ingresopq.objects.get(id=id)
     if request.method == 'POST':
@@ -318,11 +328,11 @@ def actualizar_estado(request, id):
         print("Error")
     return render(request, 'edicionIngresopqs.html', { 'ingresopq': ingresopq})
 
-
+@login_required
 def subir_doc(request):
     ingresopqs = Ingresopq.objects.all()
     return render(request, 'subir_doc.html', {'ingresopqs': ingresopqs})
-
+@login_required
 def edicionPdf(request, id):
     ingresopq = Ingresopq.objects.get(id=id)
 
@@ -345,10 +355,12 @@ def edicionPdf(request, id):
 
     return render(request, 'edicionPdf.html', {'ingresopq': ingresopq})
 
+@login_required
 def verIngresopqs(request, id):
     ingresopq = Ingresopq.objects.get(id=id)
     return render(request, 'verIngresopqs.html', {'ingresopq': ingresopq})
 
+@login_required
 def admin_dash(request):
     # Obtener los registros de Ingresopq
     ingresos = Ingresopq.objects.all()
