@@ -29,12 +29,12 @@
       </div>
       <hr>
 
-      <hr>
+      {% comment %} <hr>
       <div class="col">
         RESTRICIONES
         <h4>{{verTipospq.restriciones}}</h4>
       </div>
-      <hr>
+      <hr> {% endcomment %}
     </div>
   </div>
   
@@ -77,7 +77,7 @@
 
       <div class="form-group col-md-6">
           <label for="lote">Lote</label>
-          <input type="text" name="lote" id="lote" class="form-control" pattern="^[0-99999999999999]+" maxlength="7" minlength="7" required>
+          <input type="text" name="lote" id="lote" class="form-control" pattern="^[a-zA-Z0-9]{7}$" maxlength="7" minlength="7" required>
       </div>
 
       <div class="form-group col-md-6">

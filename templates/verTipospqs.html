@@ -37,11 +37,11 @@
                                         <h5 align="left"">{{verTipospq.descripcion}} </h5>
                                     </div>
 
-                                    <div class="text-center col-md-12" >
+                                    {% comment %} <div class="text-center col-md-12" >
                                         <h3>Restriciones:</h3>
                                         <h5 align="left" >{{verTipospq.restriciones}} </h5>
                                     </div>
-                                    
+                                     {% endcomment %}
 
                                     <div class="col-md-12">
                                         <a href="{% url 'adminTipospqs' %}" class="btn btn-secondary" >Volver</a>
@@ -90,13 +90,13 @@
                                                             <textarea class="form-control" placeholder="" name="descripcion" id="descripcion" style="height: 100px" value="{{verTipospq.descripcion}}">{{verTipospq.descripcion}}</textarea>
                                                         </div>
 
-                                                        <div class="form-group col-md-12">
+                                                        {% comment %} <div class="form-group col-md-12">
                                                             <label for="">Restriciones</label>
                                                             <div class="form-floating">
                                                                 <textarea type="list" class="form-control" placeholder="" name="restricciones" id="restricciones" style="height: 100px" value="{{verTipospq.restriciones}}">{{verTipospq.restriciones}}</textarea>
                                                                 <label for="restricciones">Cada restriccion que incluya separelo con una coma.</label>
                                                             </div>
-                                                        </div>
+                                                        </div> {% endcomment %}
                                                         <br>
                                                         
                                                         <div class="modal-footer form-group">

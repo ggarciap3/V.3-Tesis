@@ -18,7 +18,7 @@ class Tipospq(models.Model):
     id_categoriap = models.ForeignKey(Categoriapq, on_delete=models.CASCADE)
     nombre = models.CharField(max_length=50, unique=True)
     descripcion = models.CharField(max_length=200)
-    restriciones = models.CharField(max_length=200)
+    #restriciones = models.CharField(max_length=200)
     imagen = models.ImageField(upload_to='imagenes/tipospqs/%Y/%m/%d/')
     estado = models.BooleanField(default=True)
     class Meta:

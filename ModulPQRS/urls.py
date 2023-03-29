@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,re_path
 from pqrs import views
-from pqrs.views import LoginFormView,LogoutView
+from pqrs.views import LoginFormView,LogoutView,chatbotView,tipospqsView
 from django.conf import settings
 
 from django.conf.urls.static import static
@@ -26,8 +26,8 @@ urlpatterns = [
     path('', LoginFormView.as_view(),name="login"),
     path('logout/', LogoutView.as_view(),name="logout"),
 
-    path('tipospqs/', views.tipospqs, name='tipospqs'),
-    path('chatbot/', views.chatbot, name='chatbot'),
+    path('tipospqs/', tipospqsView.as_view(), name='tipospqs'),
+    path('chatbot/', chatbotView.as_view(), name='chatbot'),
     path('detalleTipospq/<id>', views.detalleTipospq, name='detalleTipospq'),
 
     path('adminCategoriapqs/', views.adminCategoriapqs, name='adminCategoriapqs'),
