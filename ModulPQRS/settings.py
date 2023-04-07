@@ -27,8 +27,8 @@ SECRET_KEY = 'django-insecure-5et3$mz%1(d(d=!8c5^@9u2ke1%8k^73y-7$tc%j$gfdf8h22(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.0.171']
-#ALLOWED_HOSTS = []
+#ALLOWED_HOSTS = ['192.168.66.170','177.234.200.10']
+ALLOWED_HOSTS = []
 
 # Application definition
 #python manage.py runserver 0.0.0.0:8000
@@ -161,8 +161,8 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'wall.eat.co@gmail.com'
 EMAIL_HOST_PASSWORD = 'rcundbofzdotxfbv'
-
-
+#EMAIL_HOST_USER = 'wall.eat.co@gmail.com'
+#EMAIL_HOST_PASSWORD = 'ertpskagziupjqtt'
 
 # Configuración de almacenamiento de archivos para la carpeta 'media'
 MEDIA_URL = '/media/'
